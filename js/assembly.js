@@ -109,6 +109,10 @@ function stamp(v) {
 }
 
 export function mount(root, opts = {}) {
+  // Every listener hangs off one AbortController, so leaving the sheet removes all of them.
+  // Without it, each visit to sheet 04 stacked another click handler on the same root.
+  const ac = new AbortController();
+  const sig = { signal: ac.signal };
   const col = root.querySelector('#col');
   const dz = root.querySelector('#dz');
   const verdict = root.querySelector('#verdict');
@@ -151,17 +155,17 @@ export function mount(root, opts = {}) {
     else if (b.id === 'inspect') showVerdict();
     else if (b.id === 'again') { list = []; history = []; shared = false; root.querySelector('#site-title').textContent = t('onStick'); hideVerdict(); draw(); const u = new URL(location.href); u.hash = '#/4'; window.history.replaceState(null, '', u); }
     else if (b.id === 'share') doShare(say);
-  });
+  }, sig);
 
   // Drag from the tray onto the stick.
   let drag = null, suppressClick = false;
   root.addEventListener('pointerdown', (e) => {
     const b = e.target.closest('.piece-btn'); if (!b || e.button > 0) return;
     drag = { id: b.dataset.id, x: e.clientX, y: e.clientY, ghost: null, pid: e.pointerId, src: b };
-  });
-  window.addEventListener('pointermove', onMove, { passive: false });
-  window.addEventListener('pointerup', onUp);
-  window.addEventListener('pointercancel', () => endDrag());
+  }, sig);
+  window.addEventListener('pointermove', onMove, { passive: false, signal: ac.signal });
+  window.addEventListener('pointerup', onUp, sig);
+  window.addEventListener('pointercancel', () => endDrag(), sig);
   function onMove(e) {
     if (!drag || e.pointerId !== drag.pid) return;
     const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
@@ -188,7 +192,7 @@ export function mount(root, opts = {}) {
 
   draw();
   if (shared) showVerdict();
-  return () => { window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); };
+  return () => { endDrag(); ac.abort(); };
 }
 
 async function doShare(say) {
