@@ -6,11 +6,11 @@ import { PIECES } from './data.js';
 import { block } from './pieces.js';
 import { esc } from './sheets.js';
 
-const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'bonito', 'pepinillo', 'aceitunaNegra', 'queso', 'tomate', 'pina'];
-const CODE = { anchoa: 'a', piparra: 'p', aceituna: 'o', boqueron: 'b', bonito: 't', pepinillo: 'c', aceitunaNegra: 'n', queso: 'q', tomate: 'm', pina: 'x' };
+const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'pulpo', 'mejillon', 'salmon', 'bonito', 'atun', 'pepinillo', 'aceitunaNegra', 'huevo', 'queso', 'tomate', 'pina'];
+const CODE = { anchoa: 'a', piparra: 'p', aceituna: 'o', boqueron: 'b', bonito: 't', pepinillo: 'c', aceitunaNegra: 'n', queso: 'q', tomate: 'm', pina: 'x', pulpo: 'u', mejillon: 'j', salmon: 's', atun: 'w', huevo: 'h' };
 const DECODE = Object.fromEntries(Object.entries(CODE).map(([k, v]) => [v, k]));
 const MAX = 8;
-const W = { pina: 40, piparra: 72, pepinillo: 34 };
+const W = { pina: 40, piparra: 14, pepinillo: 34, mejillon: 30 };
 
 let list = [];
 let history = [];
@@ -19,10 +19,10 @@ let shared = false;
 export function decode(s) { return (s || '').split(',').map((c) => DECODE[c]).filter(Boolean).slice(0, MAX); }
 const encode = (l) => l.map((id) => CODE[id]).join(',');
 
-function pieceSVG(id, cls = '') {
+function pieceSVG(id, flip = false) {
   const h = PIECES[id].h + 2;
   const w = W[id] || 32;
-  return `<svg class="psvg ${cls}" viewBox="${-w / 2} ${-h / 2} ${w} ${h}" style="--w:${w};--h:${h}" aria-hidden="true">${block(id)}</svg>`;
+  return `<svg class="psvg" viewBox="${-w / 2} ${-h / 2} ${w} ${h}" style="--w:${w};--h:${h}" aria-hidden="true">${block(id, { flip })}</svg>`;
 }
 
 const M = {
@@ -39,6 +39,7 @@ const M = {
   basement: { es: 'La cubierta está en el sótano.', en: 'The roof is in the basement.', eu: 'Estalkia sotoan dago.' },
   topFish: { es: 'Anchoa en la punta: impermeabilización expuesta.', en: 'Anchovy on the tip: exposed waterproofing.', eu: 'Antxoa puntan: iragazgaizte agerian.' },
   topOlive: { es: 'Remate en aceituna, como en el plano 01.', en: 'Capped with an olive, as on sheet 01.', eu: 'Olibaz errematatua, 01 planoan bezala.' },
+  veggie: { es: 'Gilda vegetal: existe y tiene fuente (plano 05). Ensalada homologada.', en: 'Vegetarian gilda: it exists and has a source (sheet 05). A certified salad.', eu: 'Gilda begetala: badago eta iturria du (05 planoa). Entsalada homologatua.' },
   full: { es: 'Al límite de carga.', en: 'At full load.', eu: 'Karga mugan.' },
 };
 
@@ -49,7 +50,7 @@ export function judge(l) {
   const notes = [];
   let code;
   if (n('pina')) { code = 'heresy'; notes.push(M.pina); }
-  else if (!fish) { code = 'salad'; notes.push(l.length === 1 && olives === 1 ? M.oliveOnly : M.salad); }
+  else if (!fish) { code = 'salad'; notes.push(l.length === 1 && olives === 1 ? M.oliveOnly : M.salad); if (n('piparra') && olives) notes.push(M.veggie); }
   else if (!n('piparra')) { code = 'heresy'; notes.push(M.noFacade); }
   else if (!olives) { code = 'heresy'; notes.push(M.noFound); }
   else if (greens + olives >= 3 * fish + 4) { code = 'salad'; notes.push(M.garden); }
@@ -117,7 +118,16 @@ export function mount(root, opts = {}) {
   const say = (msg) => { toast.textContent = msg; clearTimeout(say.t); say.t = setTimeout(() => (toast.textContent = ''), 2600); };
 
   function draw() {
-    col.innerHTML = list.map((id, i) => `<button type="button" class="placed cat-${PIECES[id].cat}" data-i="${i}" aria-label="${esc(t('remove')(L(PIECES[id].name)))}">${pieceSVG(id)}</button>`).join('');
+    // consecutive piparras are pierced together, side by side, like on the plans
+    const btn = (id, i, flip) => `<button type="button" class="placed cat-${PIECES[id].cat}" data-i="${i}" aria-label="${esc(t('remove')(L(PIECES[id].name)))}">${pieceSVG(id, flip)}</button>`;
+    let html = '';
+    for (let i = 0; i < list.length; i++) {
+      if (list[i] !== 'piparra') { html += btn(list[i], i); continue; }
+      let k = 0; let b = '';
+      while (list[i + k] === 'piparra') { b += btn('piparra', i + k, k % 2 === 1); k++; }
+      html += `<div class="bundle">${b}</div>`; i += k - 1;
+    }
+    col.innerHTML = html;
     root.querySelector('#emptylot').hidden = list.length > 0;
     count.textContent = `${list.length}/${MAX}`;
     root.querySelector('#inspect').disabled = list.length === 0;
@@ -128,7 +138,7 @@ export function mount(root, opts = {}) {
   function add(id) {
     if (list.length >= MAX) { say(t('full')); return; }
     history.push(list.slice()); list.push(id); hideVerdict(); draw();
-    const last = col.lastElementChild; if (last) { last.classList.add('drop-in'); }
+    const last = col.querySelector(`[data-i="${list.length - 1}"]`); if (last) { last.classList.add('drop-in'); }
   }
   function showVerdict() {
     const v = judge(list);

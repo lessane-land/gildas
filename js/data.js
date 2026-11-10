@@ -46,6 +46,22 @@ export const SOURCES = {
   esmadridVermut: { pub: 'esMADRID (Ayuntamiento de Madrid)', title: 'Plano de vermuterías de Madrid', url: 'https://www.esmadrid.com/sites/default/files/plano-vermuterias-madrid.pdf', kind: 'official' },
   newtableHaus: { pub: 'NewTable', title: 'Gilda Haus, Madrid', url: 'https://es.newtable.com/ciudades/madrid/restaurantes/gilda-haus-madrid', kind: 'guide' },
   tableMadrid: { pub: 'TableJourney', title: 'Gilda tapas in Madrid centro', url: 'https://tablejourney.com/spain/madrid/street-food/rosales-gilda-cantos/', kind: 'guide' },
+  doeatVermut: { pub: 'Do Eat Better Experience', title: 'Mejores bares de vermut en Madrid', url: 'https://doeatbetterexperience.com/es/blog/mejores-bares-vermut-madrid/', kind: 'guide' },
+  tableArdosa: { pub: 'TableJourney', title: 'Bodega de la Ardosa', url: 'https://tablejourney.com/spain/madrid/casual-dining/bodega-de-la-ardosa/', kind: 'guide' },
+  holaPatatas: { pub: '¡HOLA!', title: 'Aperitivos imprescindibles para el vermut', url: 'https://www.hola.com/seleccion/20200818173508/aperitivos-vermut-imprescindibles/', kind: 'press' },
+  gastroPatatas: { pub: 'Gastronosfera', title: 'Patatas fritas, un aperitivo sin fronteras', url: 'https://gastronosfera.com/tendencias/patatas-fritas-un-aperitivo-sin-fronteras-chip-chip-hurra', kind: 'press' },
+  findPatatas: { pub: 'Findit (supermarket prices)', title: 'Patatas fritas flor de sal 150 g', url: 'https://finditapp.es/product/112700/patatas-fritas-flor-de-sal-150-g', kind: 'prices' },
+  bacPulpo: { pub: 'Bacalalo (shop blog)', title: 'Galician octopus gildas', url: 'https://bacalalo.com/en/blogs/bacalao/gildas-de-pulpo-gallego-receta-pintxo-gourmet', kind: 'shop' },
+  bacSalmon: { pub: 'Bacalalo (shop blog)', title: 'Smoked salmon gilda', url: 'https://bacalalo.com/en/blogs/bacalao/gilda-de-salmon-ahumado', kind: 'shop' },
+  bacHuevo: { pub: 'Bacalalo (shop blog)', title: 'Gildas with quail egg', url: 'https://bacalalo.com/en/blogs/bacalao/gildas-con-huevo-de-codorniz-receta', kind: 'shop' },
+  timeoutReal: { pub: 'Time Out Madrid', title: 'La Real Gilda\'s Gallery abre en el Mercado de San Antón', url: 'https://www.timeout.es/madrid/es/noticias/de-pulpo-huevo-de-codorniz-o-atun-con-piquillo-abre-el-nuevo-templo-para-los-amantes-de-las-gildas-en-el-corazon-de-chueca-121825', kind: 'guide' },
+  elespanolMadrid: { pub: 'El Español', title: 'Las mejores gildas de Madrid (2023)', url: 'https://elespanol.com/madrid/ocio/20230221/mejores-gildas-madrid-mundo-monta-fiestas-honor/742925885_0.amp.html', kind: 'press' },
+  vinetur: { pub: 'Vinetur', title: 'Diez maridajes de gilda y cerveza (2026)', url: 'https://www.vinetur.com/es/20260928107820/glovo-lleva-a-su-aplicacion-diez-maridajes-de-gilda-y-cerveza-para-pedir-a-domicilio.html', kind: 'press' },
+  directo: { pub: 'Directo al Paladar', title: 'Seis recetas para un picoteo con aires cantábricos', url: 'https://www.directoalpaladar.com/recetas-de-aperitivos/seis-recetas-para-picoteo-finde-aires-cantabricos/amp', kind: 'press' },
+  msecretoBares: { pub: 'Madrid Secreto', title: 'Los mejores bares de Madrid', url: 'https://madridsecreto.co/bares-madrid/', kind: 'guide' },
+  msecretoMarga: { pub: 'Madrid Secreto', title: 'Gildas baratas en Madrid: Variantes Marga', url: 'https://madridsecreto.co/en/gildas-baratas-madrid-2/', kind: 'guide' },
+  spotted: { pub: 'Spotted by Locals', title: 'La Consentida de Doré', url: 'https://www.spottedbylocals.com/madrid/?p=6277', kind: 'guide' },
+  gastroranking: { pub: 'Gastroranking (reseñas)', title: 'La Consentida de Doré', url: 'https://gastroranking.es/r/la-consetida-de-dore_198760/', kind: 'reviews' },
   tirso: { pub: 'Mercado de Tirso de Molina', title: 'Gildas en Madrid', url: 'https://mercadotirsodemolina.es/gildas-en-madrid/', kind: 'company' },
 };
 
@@ -59,20 +75,26 @@ export const KIND = {
   paper: { es: 'ponencia', en: 'paper', eu: 'txostena' },
   prices: { es: 'precios', en: 'prices', eu: 'prezioak' },
   encyclopedia: { es: 'enciclopedia', en: 'encyclopedia', eu: 'entziklopedia' },
+  reviews: { es: 'reseñas', en: 'reviews', eu: 'iruzkinak' },
 };
 
 // Piece catalogue. `cat` drives colour: one layer per category, like a CAD drawing.
 // h = height the piece takes along the stick, in mm (for stacking drawings).
 export const PIECES = {
   anchoa: { cat: 'fish', h: 24, name: { es: 'Anchoa del Cantábrico', en: 'Cantabrian anchovy', eu: 'Kantauriko antxoa' }, role: { es: 'Cubierta', en: 'Roof membrane', eu: 'Estalkia' } },
-  piparra: { cat: 'pickle', h: 8, name: { es: 'Piparra de Ibarra', en: 'Ibarra piparra', eu: 'Ibarrako piparra' }, role: { es: 'Fachada', en: 'Facade', eu: 'Fatxada' } },
+  piparra: { cat: 'pickle', h: 28, name: { es: 'Piparra de Ibarra', en: 'Ibarra piparra', eu: 'Ibarrako piparra' }, role: { es: 'Fachada', en: 'Facade', eu: 'Fatxada' } },
   aceituna: { cat: 'olive', h: 20, name: { es: 'Aceituna manzanilla', en: 'Manzanilla olive', eu: 'Manzanilla oliba' }, role: { es: 'Cimentación', en: 'Foundation', eu: 'Zimendua' } },
   boqueron: { cat: 'fish', h: 24, name: { es: 'Boquerón en vinagre', en: 'Boquerón in vinegar', eu: 'Ozpinetako bokeroia' }, role: { es: 'Cubierta clara', en: 'Light roof', eu: 'Estalki argia' } },
   bonito: { cat: 'fish', h: 12, name: { es: 'Bonito del norte', en: 'Albacore (bonito)', eu: 'Hegaluzea' }, role: { es: 'Forjado', en: 'Floor slab', eu: 'Forjatua' } },
   pepinillo: { cat: 'pickle', h: 10, name: { es: 'Pepinillo', en: 'Gherkin', eu: 'Pepinilloa' }, role: { es: 'Celosía', en: 'Lattice', eu: 'Saretxoa' } },
   aceitunaNegra: { cat: 'olive', h: 20, name: { es: 'Aceituna negra', en: 'Black olive', eu: 'Oliba beltza' }, role: { es: 'Cimentación oscura', en: 'Dark foundation', eu: 'Zimendu iluna' } },
-  queso: { cat: 'other', h: 14, name: { es: 'Queso Idiazabal', en: 'Idiazabal cheese', eu: 'Idiazabal gazta' }, role: { es: 'Aislante', en: 'Insulation', eu: 'Isolatzailea' } },
+  queso: { cat: 'other', h: 14, name: { es: 'Queso', en: 'Cheese', eu: 'Gazta' }, role: { es: 'Aislante', en: 'Insulation', eu: 'Isolatzailea' } },
   tomate: { cat: 'other', h: 18, name: { es: 'Tomate cherry', en: 'Cherry tomato', eu: 'Cherry tomatea' }, role: { es: 'Cúpula', en: 'Dome', eu: 'Kupula' } },
+  pulpo: { cat: 'fish', h: 16, name: { es: 'Pulpo', en: 'Octopus', eu: 'Olagarroa' }, role: { es: 'Ventosa estructural', en: 'Structural suction cup', eu: 'Egiturazko bentosa' } },
+  mejillon: { cat: 'fish', h: 14, name: { es: 'Mejillón en escabeche', en: 'Mussel in escabeche', eu: 'Muskuilua eskabetxean' }, role: { es: 'Teja', en: 'Roof tile', eu: 'Teila' } },
+  salmon: { cat: 'fish', h: 16, name: { es: 'Salmón ahumado', en: 'Smoked salmon', eu: 'Izokin ketua' }, role: { es: 'Rollo de aislamiento', en: 'Insulation roll', eu: 'Isolamendu bilkina' } },
+  atun: { cat: 'fish', h: 12, name: { es: 'Atún ahumado', en: 'Smoked tuna', eu: 'Atun ketua' }, role: { es: 'Viga secundaria', en: 'Secondary beam', eu: 'Bigarren habea' } },
+  huevo: { cat: 'other', h: 18, name: { es: 'Huevo de codorniz', en: 'Quail egg', eu: 'Galeper arrautza' }, role: { es: 'Lucernario', en: 'Skylight', eu: 'Argizulo' } },
   pina: { cat: 'banned', h: 16, name: { es: 'Piña', en: 'Pineapple', eu: 'Anana' }, role: { es: 'Material no homologado', en: 'Unapproved material', eu: 'Homologatu gabeko materiala' } },
 };
 
@@ -84,8 +106,8 @@ export const MEASURES = [
   {
     id: 'piparra', value: '50 a 120', unit: 'mm',
     what: { es: 'Longitud comestible de la piparra con Eusko Label', en: 'Edible length of an Eusko Label piparra', eu: 'Eusko Label piparraren luzera jangarria' },
-    note: { es: 'Lo fija su reglamento de calidad: entre 5 y 12 cm.', en: 'Set by its quality regulation: 5 to 12 cm.', eu: 'Kalitate araudiak finkatzen du: 5 eta 12 cm artean.' },
-    src: ['holaPip', 'deia', 'euskadiReg'],
+    note: { es: 'Lo fija su reglamento de calidad: entre 5 y 12 cm. En el palillo va doblada en C, así que ocupa la mitad.', en: 'Set by its quality regulation: 5 to 12 cm. On the stick it is folded into a C, so it takes half that.', eu: 'Kalitate araudiak finkatzen du: 5 eta 12 cm artean. Makilatxoan C erara tolestuta doa, beraz erdia hartzen du.' },
+    src: ['holaPip', 'deia', 'euskadiReg', 'bacPulpo'],
   },
   {
     id: 'anchoa', value: '60 a 140', unit: 'mm',
@@ -160,6 +182,24 @@ export const BOM = [
   },
 ];
 
+// Side installations: not part of the gilda, but no site opens without them.
+export const SIDES = [
+  {
+    code: '02.01', piece: 'vermut', qty: 1, unit: { es: 'vaso', en: 'glass', eu: 'baso' },
+    name: { es: 'Vermut de grifo', en: 'Vermouth on tap', eu: 'Txorrotako bermuta' },
+    price: { es: '2,50 € / vaso', en: '€2.50 / glass', eu: '2,50 € / baso' },
+    how: { es: 'Rojo y dulce, en vaso pequeño con una rodaja de naranja y una aceituna. Precio en la Bodega de la Ardosa.', en: 'Red and sweet, in a small glass with an orange slice and an olive. Price at Bodega de la Ardosa.', eu: 'Gorria eta gozoa, baso txikian, laranja xerra eta oliba batekin. Prezioa Bodega de la Ardosan.' },
+    src: ['doeatVermut', 'tableArdosa'],
+  },
+  {
+    code: '02.02', piece: 'patatas', qty: 1, unit: { es: 'puñado', en: 'handful', eu: 'eskukada' },
+    name: { es: 'Patatas fritas de bolsa', en: 'Crisps from the bag', eu: 'Poltsako patata frijituak' },
+    price: { es: '14,86 € / kg', en: '€14.86 / kg', eu: '14,86 € / kg' },
+    how: { es: 'Un clásico de la hora del vermut. Bolsa de 150 g en aceite de oliva a 2,08 €. El puñado no tiene peso oficial: no se reparte por unidad.', en: 'A vermouth-hour classic. A 150 g bag in olive oil at €2.08. A handful has no official weight, so it is not split per unit.', eu: 'Bermut orduko klasikoa. Oliba olioko 150 g-ko poltsa 2,08 €-tan. Eskukadak ez du pisu ofizialik: ez da aleka banatzen.' },
+    src: ['holaPatatas', 'gastroPatatas', 'findPatatas'],
+  },
+];
+
 export const BAR_PRICE = {
   value: { es: '1,50 a 3,00 €', en: '€1.50 to €3.00', eu: '1,50 - 3,00 €' },
   note: { es: 'Precio de una gilda en barra de pintxos en 2026. En Casa Vallés, unos 2,50 €.', en: 'Price of one gilda at a pintxo bar in 2026. At Casa Vallés, about €2.50.', eu: 'Gilda baten prezioa pintxo-barra batean 2026an. Casa Vallésen, 2,50 € inguru.' },
@@ -212,6 +252,12 @@ export const VARIANTS = [
   { id: 'queso', stack: ['aceituna', 'piparra', 'queso', 'piparra', 'anchoa', 'aceituna'], name: { es: 'Con queso', en: 'With cheese', eu: 'Gaztarekin' }, note: { es: 'Añade un taco de Idiazabal.', en: 'Adds a cube of Idiazabal.', eu: 'Idiazabal gazta zati bat gehitzen du.' }, src: ['bacHome', 'hola'] },
   { id: 'negra', stack: ['aceitunaNegra', 'piparra', 'piparra', 'piparra', 'anchoa', 'aceitunaNegra'], name: { es: 'Negra', en: 'Black', eu: 'Beltza' }, note: { es: 'Aceituna negra de Aragón en lugar de manzanilla.', en: 'Black Aragón olive instead of manzanilla.', eu: 'Aragoiko oliba beltza manzanillaren ordez.' }, src: ['bacHome'] },
   { id: 'bilbaina', stack: ['aceituna', 'pepinillo', 'piparra', 'tomate', 'anchoa', 'aceituna'], name: { es: 'Escuela bilbaína', en: 'Bilbao school', eu: 'Bilboko eskola' }, note: { es: 'Más libertad: pepinillo, cebolleta, queso o tomate cherry junto a la anchoa.', en: 'More freedom: gherkin, spring onion, cheese or cherry tomato next to the anchovy.', eu: 'Askatasun handiagoa: pepinilloa, tipulina, gazta edo cherry tomatea antxoaren ondoan.' }, src: ['bacHist'] },
+  { id: 'pulpo', stack: ['aceituna', 'piparra', 'pulpo', 'aceituna'], sourcedOrder: true, name: { es: 'De pulpo', en: 'Octopus', eu: 'Olagarroduna' }, note: { es: 'Aceituna, medallón de pulpo, piparra doblada en C y aceituna, con pimentón y aceite. Hoy está en muchas barras de Madrid.', en: 'Olive, octopus medallion, piparra folded into a C and olive, with paprika and oil. Now on many Madrid counters.', eu: 'Oliba, olagarro xerra, C erara tolestutako piparra eta oliba, piperrautsarekin eta olioarekin. Gaur Madrilgo barra askotan dago.' }, src: ['bacPulpo', 'timeoutGilderia', 'timeoutReal'] },
+  { id: 'mejillon', stack: ['aceituna', 'piparra', 'mejillon', 'piparra', 'aceituna'], name: { es: 'De mejillón', en: 'Mussel', eu: 'Muskuiluduna' }, note: { es: 'Mejillón en escabeche en el palillo.', en: 'A mussel in escabeche on the stick.', eu: 'Muskuilua eskabetxean makilatxoan.' }, src: ['telecinco', 'elespanolMadrid'] },
+  { id: 'salmon', stack: ['aceituna', 'piparra', 'salmon', 'piparra', 'aceituna'], name: { es: 'De salmón ahumado', en: 'Smoked salmon', eu: 'Izokin ketuduna' }, note: { es: 'Una tira de salmón ahumado enrollada en lugar de la anchoa.', en: 'A rolled strip of smoked salmon instead of the anchovy.', eu: 'Izokin ketu zerrenda bilduta, antxoaren ordez.' }, src: ['bacTypes', 'bacSalmon', 'timeoutGilderia'] },
+  { id: 'huevo', stack: ['aceituna', 'piparra', 'huevo', 'anchoa', 'aceituna'], name: { es: 'Con huevo de codorniz', en: 'With quail egg', eu: 'Galeper arrautzarekin' }, note: { es: 'Huevo de codorniz cocido junto a la anchoa.', en: 'A boiled quail egg next to the anchovy.', eu: 'Galeper arrautza egosia antxoaren ondoan.' }, src: ['directo', 'bacHuevo', 'timeoutReal'] },
+  { id: 'gaditana', stack: ['aceituna', 'pepinillo', 'atun', 'queso', 'piparra', 'aceituna'], name: { es: 'Atún ahumado y payoyo', en: 'Smoked tuna and payoyo', eu: 'Atun ketua eta payoyo' }, note: { es: 'Atún ahumado de Barbate, pepinillo y queso payoyo: un homenaje al sur.', en: 'Smoked Barbate tuna, gherkin and payoyo cheese: a nod to the south.', eu: 'Barbateko atun ketua, pepinilloa eta payoyo gazta: hegoaldeari omenaldia.' }, src: ['elespanolMadrid'] },
+  { id: 'vegetal', stack: ['aceituna', 'piparra', 'tomate', 'pepinillo', 'aceituna'], name: { es: 'Vegetal', en: 'Vegetarian', eu: 'Begetala' }, note: { es: 'Sin pescado. Existe y tiene fuente. El inspector del plano 04 la llama ensalada igualmente.', en: 'No fish. It exists and has a source. The inspector on sheet 04 still calls it a salad.', eu: 'Arrainik gabe. Badago eta iturria du. 04 planoko ikuskatzaileak entsalada deitzen dio hala ere.' }, src: ['msecretoBares', 'telecinco', 'timeoutReal'] },
 ];
 
 // Where to eat one. No ratings: only what each source says.
@@ -233,4 +279,7 @@ export const PLACES = [
   { name: 'Gilda Haus', city: 'Madrid', addr: 'San Mateo, 6', says: { es: 'De las creadoras de La Gildería: seis gildas de la casa y un Gildatini. Los fines de semana es club.', en: 'From the founders of La Gildería: six house gildas and a Gildatini. A club at weekends.', eu: 'La Gilderiaren sortzaileena: etxeko sei gilda eta Gildatini bat. Asteburuetan kluba da.' }, src: ['newtableHaus'] },
   { name: 'Mercado de San Miguel', city: 'Madrid', addr: { es: 'Plaza de San Miguel', en: 'Plaza de San Miguel', eu: 'San Miguel plaza' }, says: { es: 'Gildas en doce puestos distintos, de 2 a 3 €.', en: 'Gildas at twelve different counters, €2 to €3.', eu: 'Gildak hamabi postu desberdinetan, 2-3 €.' }, src: ['tableMadrid'] },
   { name: 'La Gilda de Oro', city: 'Madrid', addr: { es: 'Mercado de Tirso de Molina', en: 'Tirso de Molina market', eu: 'Tirso de Molina merkatua' }, says: { es: 'Puesto de gildas dentro del mercado.', en: 'A gilda stall inside the market.', eu: 'Gilda postua merkatu barruan.' }, src: ['tirso'] },
+  { name: 'La Consentida de Doré', city: 'Madrid', addr: { es: 'Junto al Mercado de Antón Martín', en: 'Next to the Antón Martín market', eu: 'Antón Martín merkatuaren ondoan' }, says: { es: 'Han hecho de las gildas su pasión y no paran de inventar combinaciones. Entre el mercado y el Cine Doré.', en: 'They made gildas their passion and keep inventing combinations. Between the market and the Cine Doré.', eu: 'Gildak beren grina bihurtu dituzte eta konbinazio berriak asmatzen jarraitzen dute. Merkatuaren eta Doré zinemaren artean.' }, src: ['telecinco', 'spotted', 'gastroranking'] },
+  { name: 'La Real Gilda\'s Gallery', city: 'Madrid', addr: { es: 'Mercado de San Antón, Chueca', en: 'San Antón market, Chueca', eu: 'San Antón merkatua, Chueca' }, says: { es: 'Más de 40 gildas hechas a mano: pulpo, langostino, huevo de codorniz, bacalao ahumado, veganas.', en: 'Over 40 handmade gildas: octopus, prawn, quail egg, smoked cod, vegan.', eu: '40 gilda baino gehiago eskuz eginak: olagarroa, otarrainxkara, galeper arrautza, bakailao ketua, beganoak.' }, src: ['timeoutReal'] },
+  { name: 'Variantes Marga', city: 'Madrid', addr: { es: 'Mercado de la Cebada, La Latina', en: 'La Cebada market, La Latina', eu: 'La Cebada merkatua, La Latina' }, says: { es: 'Puesto de encurtidos de tres generaciones. Gildas de 1,40 a 3 €, la mayoría por debajo de 2 €.', en: 'A pickle stall run by three generations. Gildas at €1.40 to €3, most under €2.', eu: 'Hiru belaunaldiko ozpinetako postua. Gildak 1,40 eta 3 € artean, gehienak 2 €-tik behera.' }, src: ['msecretoMarga'] },
 ];

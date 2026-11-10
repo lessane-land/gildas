@@ -22,10 +22,12 @@ const FRONT = {
   aceitunaNegra: () => `<ellipse cx="0" cy="0" rx="10" ry="9.6" class="ink-olive solid"/>` +
     `<ellipse cx="0" cy="0" rx="8.4" ry="8" class="ink-olive thin"/>` +
     `<path d="M-5 -4.6 A6 6 0 0 1 -1 -6.4" class="ink-olive thin"/>`,
+  // A gilda piparra is folded in half (a C) and pierced through both legs, so it hangs
+  // along the stick instead of sticking out sideways. Tip at the bottom left, stem at the bottom right.
   piparra: (flip) => `<g transform="scale(${flip ? -1 : 1},1)">` +
-    `<path d="M-32 0.6 C-20 -1.4 0 -3.6 19 -3.6 C24.5 -3.6 27 -2 27 0 C27 2 24.5 3.4 19 3.4 C0 3.4 -20 2.2 -32 0.6 Z" class="ink-pickle solid"/>` +
-    `<path d="M27 0 C31 0 33.5 -2 36 -5.5" class="ink-pickle"/>` +
-    `<path d="M-24 0.3 C-10 -0.6 6 -1 18 -1" class="ink-pickle thin" stroke-dasharray="1.2 1.4"/></g>`,
+    `<path d="M-2.6 13.6 C-4.8 6 -5.4 -6 -3.4 -11 C-2.2 -14 2.4 -14.4 3.8 -11.4 C5.6 -7.4 5.4 4 4.6 11.4 L2.2 11.4 C2.8 4 2.8 -6.6 1.8 -9.2 C1 -10.8 -1 -10.6 -1.4 -9 C-2.6 -5 -2.4 5 -2.6 13.6 Z" class="ink-pickle solid"/>` +
+    `<path d="M3.4 11.4 C3.4 13.4 4.6 14.6 6.4 15.6" class="ink-pickle"/>` +
+    `<path d="M-3 7 C-3.8 0 -3.6 -6 -2.4 -9.6 M4.4 -9 C4.6 -4 4.4 3 3.8 8" class="ink-pickle thin" stroke-dasharray="1 1.2"/></g>`,
   anchoa: () => ribbon('M-14 -9.5 C-4 -13.5 10 -12 12 -6 C14 0 -14 0 -12 6 C-10 12 4 13.5 14 9.5', 'fish', false),
   boqueron: () => ribbon('M-14 -9.5 C-4 -13.5 10 -12 12 -6 C14 0 -14 0 -12 6 C-10 12 4 13.5 14 9.5', 'fish', true),
   bonito: () => `<rect x="-11" y="-6" width="22" height="12" rx="2.4" class="ink-fish solid"/>` +
@@ -36,15 +38,32 @@ const FRONT = {
     `<path d="M-12 4.4 L8.4 4.4" class="ink-other thin"/>`,
   tomate: () => `<circle cx="0" cy="0" r="8.6" class="ink-other solid"/>` +
     `<path d="M0 -8.6 L0 -11 M0 -8.6 L-3 -10.4 M0 -8.6 L3 -10.4 M0 -8.6 L-3.4 -8 M0 -8.6 L3.4 -8" class="ink-other thin"/>`,
+  pulpo: () => `<circle cx="0" cy="0" r="8" class="ink-fish solid"/><circle cx="0" cy="0" r="5.4" class="ink-fish thin"/>` +
+    [0, 60, 120, 180, 240, 300].map((a) => `<circle cx="${R(6.7 * Math.cos(a * Math.PI / 180))}" cy="${R(6.7 * Math.sin(a * Math.PI / 180))}" r="0.75" class="ink-fish thin"/>`).join('') +
+    `<path d="M-2 -1.4 L-1.4 -1.6 M1.6 0.8 L2.2 0.6 M-0.6 2 L0 1.8" class="ink-dimtone thin"/>`,
+  mejillon: () => `<path d="M-13 1 C-10 -6 6 -7.5 13 -2 C10 4 -2 7 -13 1 Z" class="ink-fish solid"/>` +
+    `<path d="M-9 1.2 C-4 -3 4 -4 9 -1.6 M-5 1.6 C-1 -0.6 3 -1.2 6 -0.4" class="ink-fish thin"/>`,
+  salmon: () => `<circle cx="0" cy="0" r="8" class="ink-fish solid"/><path d="M0 0 C2 -1 2.4 2 0 2.6 C-3 3 -4 -1 -2 -3 C1 -5.6 5.4 -3 5.6 0.6 C5.8 4.6 1.6 6.8 -1.6 6.2" class="ink-fish thin"/>`,
+  atun: () => `<rect x="-11" y="-6" width="22" height="12" rx="1" class="ink-fish solid"/>` +
+    `<path d="M-11 -2 L11 -2 M-11 2 L11 2" class="ink-fish thin" stroke-dasharray="1.4 1"/>`,
+  huevo: () => `<ellipse cx="0" cy="0" rx="7" ry="8.8" class="ink-other solid"/>` +
+    `<path d="M-3 -4 L-2.4 -4.2 M2 -2 L2.6 -2.4 M-1 2.4 L-0.4 2 M3 4 L3.4 3.6 M-4 1 L-3.6 0.6" class="ink-other thin"/>`,
   pina: () => `<path d="M-10 -7 L10 -7 L8 8 L-8 8 Z" class="ink-banned solid"/>` +
     `<path d="M-8 -3 L6 8 M-9 2 L-2 8 M-4 -7 L9 4 M2 -7 L9.6 -1 M-8 8 L8 -7 M-2 8 L9 -1 M-9 2 L1 -7" class="ink-banned thin"/>`,
+  vermut: () => `<path d="M-11 -18 L11 -18 L9 18 L-9 18 Z" class="ink-structure solid"/>` +
+    `<path d="M-10.4 -11 L10.4 -11" class="ink-fish thin"/><path d="M-10 -8 L10 -8" class="ink-fish thin" stroke-dasharray="1 1.4"/>` +
+    `<circle cx="7" cy="-18.5" r="6" class="ink-dimtone thin"/><path d="M7 -24.5 L7 -12.5 M1 -18.5 L13 -18.5 M2.8 -22.7 L11.2 -14.3 M2.8 -14.3 L11.2 -22.7" class="ink-dimtone thin"/>` +
+    `<path d="M-5 -26 L-1 6" class="ink-structure thin"/><ellipse cx="-1.6" cy="2" rx="3.4" ry="3" class="ink-olive solid"/>`,
+  patatas: () => `<path d="M-24 6 L24 6 L20 10 L-20 10 Z" class="ink-structure solid"/>` +
+    [[-15, 2, -8], [-6, -2, 6], [4, 1, -4], [13, 3, 10], [-2, -7, 14], [-11, -4, -14], [8, -5, 2]].map(([x, y, a]) =>
+      `<path d="M${x - 6} ${y} C${x - 3} ${y - 3} ${x + 3} ${y + 3} ${x + 6} ${y}" transform="rotate(${a} ${x} ${y})" class="ink-other"/>`).join(''),
   aceite: () => `<path d="M0 -8 C3.6 -2.4 5.4 0.6 5.4 3 C5.4 6 3 8 0 8 C-3 8 -5.4 6 -5.4 3 C-5.4 0.6 -3.6 -2.4 0 -8 Z" class="ink-olive solid"/>` +
     `<path d="M-2.4 3 A2.6 2.6 0 0 0 0 5.6" class="ink-olive thin"/>`,
 };
 
 // Side elevation: the same block seen at 90 degrees. Only pieces whose shape changes need one.
 const SIDE = {
-  piparra: () => `<circle cx="0" cy="0" r="3.5" class="ink-pickle solid"/><circle cx="0" cy="0" r="1.6" class="ink-pickle thin"/>`,
+  piparra: (flip) => `<g transform="scale(${flip ? -0.5 : 0.5},1)">${FRONT.piparra(false)}</g>`,
   pepinillo: () => `<circle cx="0" cy="0" r="4.6" class="ink-pickle solid"/>`,
   anchoa: () => ribbon('M-2.6 -11 L2.6 -6 L-2.6 0 L2.6 6 L-2.6 11', 'fish', false),
   boqueron: () => ribbon('M-2.6 -11 L2.6 -6 L-2.6 0 L2.6 6 L-2.6 11', 'fish', true),
@@ -71,14 +90,28 @@ const TIP = 8;  // bare stick above the last piece
 export function stack(list, x, yBottom, opts = {}) {
   let y = yBottom - GRIP;
   const placed = [];
-  let pip = 0;
   let body = '';
-  for (const id of list) {
+  for (let i = 0; i < list.length; i++) {
+    const id = list[i];
+    if (id === 'piparra') {
+      // consecutive piparras are pierced together: one bundle, side by side, same height
+      let k = 1;
+      while (list[i + k] === 'piparra') k++;
+      const h = PIECES.piparra.h;
+      const cy = y - h / 2;
+      for (let j = 0; j < k; j++) {
+        const dx = (j - (k - 1) / 2) * (opts.view === 'side' ? 2.2 : 4.4);
+        const tilt = (j - (k - 1) / 2) * 5;
+        body += `<g transform="translate(${R(x + dx)} ${R(cy)}) rotate(${tilt})">${block(id, { view: opts.view, flip: j % 2 === 1 })}</g>`;
+        placed.push({ id, top: y - h, bottom: y, cy, bundle: k });
+      }
+      y -= h;
+      i += k - 1;
+      continue;
+    }
     const h = PIECES[id]?.h ?? 10;
     const cy = y - h / 2;
-    const flip = id === 'piparra' ? (pip++ % 2 === 1) : false;
-    const tilt = id === 'piparra' && opts.view !== 'side' ? [-4, 3, -1, 5][pip % 4] : 0;
-    body += `<g transform="translate(${R(x)} ${R(cy)}) rotate(${tilt})">${block(id, { view: opts.view, flip })}</g>`;
+    body += `<g transform="translate(${R(x)} ${R(cy)})">${block(id, { view: opts.view })}</g>`;
     placed.push({ id, top: y - h, bottom: y, cy });
     y -= h;
   }
