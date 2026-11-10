@@ -48,6 +48,11 @@ export const SOURCES = {
   tableMadrid: { pub: 'TableJourney', title: 'Gilda tapas in Madrid centro', url: 'https://tablejourney.com/spain/madrid/street-food/rosales-gilda-cantos/', kind: 'guide' },
   directoGilda: { pub: 'Directo al Paladar', title: 'Gilda clásica: receta del pincho más famoso del País Vasco', url: 'https://www.directoalpaladar.com/recetas-de-aperitivos/gilda-clasica-receta-pincho-mas-famoso-pais-vasco', kind: 'press' },
   directoCalientes: { pub: 'Directo al Paladar', title: 'Gildas calientes (cita a Juan Mari Arzak)', url: 'https://www.directoalpaladar.com/recetas-de-aperitivos/gildas-calientes-receta-de-aperitivo', kind: 'press' },
+  bacFeira: { pub: 'Bacalalo (shop blog)', title: 'Gilda de pulpo a feira (con tomate seco)', url: 'https://bacalalo.com/en/blogs/bacalao/gilda-de-pulpo-a-feira', kind: 'shop' },
+  bacReceta: { pub: 'Bacalalo (shop blog)', title: 'Gildas: original Basque recipe step by step', url: 'https://bacalalo.com/en/blogs/bacalao/gildas-receta-original-vasca-paso-a-paso', kind: 'shop' },
+  directoBanderillas: { pub: 'Directo al Paladar', title: 'Las nuevas banderillas de Mercadona', url: 'https://www.directoalpaladar.com/actualidad-1/nuevas-banderillas-mercadona-para-solucionar-aperitivo-pincho-vasco-clasico', kind: 'press' },
+  holaAceitunas: { pub: '¡HOLA! Cocina', title: 'Gildas, patés y otros bocados con aceituna (2023)', url: 'https://www.hola.com/cocina/noticias/20231027242539/aperitivos-aceitunas-gildas-tapenade-recetas/', kind: 'press' },
+  vineturMango: { pub: 'Vinetur', title: 'La gilda y la Manzanilla refuerzan su alianza (2025)', url: 'https://www.vinetur.com/2025092791655/la-gilda-y-la-manzanilla-refuerzan-su-alianza-como-aperitivo-en-el-tapeo-espanol.html', kind: 'press' },
   doeatVermut: { pub: 'Do Eat Better Experience', title: 'Mejores bares de vermut en Madrid', url: 'https://doeatbetterexperience.com/es/blog/mejores-bares-vermut-madrid/', kind: 'guide' },
   tableArdosa: { pub: 'TableJourney', title: 'Bodega de la Ardosa', url: 'https://tablejourney.com/spain/madrid/casual-dining/bodega-de-la-ardosa/', kind: 'guide' },
   holaPatatas: { pub: '¡HOLA!', title: 'Aperitivos imprescindibles para el vermut', url: 'https://www.hola.com/seleccion/20200818173508/aperitivos-vermut-imprescindibles/', kind: 'press' },
@@ -98,11 +103,23 @@ export const PIECES = {
   salmon: { cat: 'fish', h: 16, name: { es: 'Salmón ahumado', en: 'Smoked salmon', eu: 'Izokin ketua' }, role: { es: 'Rollo de aislamiento', en: 'Insulation roll', eu: 'Isolamendu bilkina' } },
   atun: { cat: 'fish', h: 12, name: { es: 'Atún ahumado', en: 'Smoked tuna', eu: 'Atun ketua' }, role: { es: 'Viga secundaria', en: 'Secondary beam', eu: 'Bigarren habea' } },
   huevo: { cat: 'other', h: 18, name: { es: 'Huevo de codorniz', en: 'Quail egg', eu: 'Galeper arrautza' }, role: { es: 'Lucernario', en: 'Skylight', eu: 'Argizulo' } },
+  piquillo: { cat: 'pickle', h: 10, name: { es: 'Pimiento del piquillo', en: 'Piquillo pepper', eu: 'Piquillo piperra' }, role: { es: 'Toldo', en: 'Awning', eu: 'Toldoa' }, src: ['timeoutReal', 'hola'] },
+  langostino: { cat: 'fish', h: 14, name: { es: 'Langostino', en: 'Prawn', eu: 'Otarrainxkara' }, role: { es: 'Arco de descarga', en: 'Relieving arch', eu: 'Deskarga arkua' }, src: ['timeoutReal', 'vinetur'] },
+  bacalao: { cat: 'fish', h: 10, name: { es: 'Bacalao ahumado', en: 'Smoked cod', eu: 'Bakailao ketua' }, role: { es: 'Losa', en: 'Slab', eu: 'Lauza' }, src: ['timeoutReal', 'elespanolMadrid'] },
+  sardina: { cat: 'fish', h: 8, name: { es: 'Sardina ahumada', en: 'Smoked sardine', eu: 'Sardina ketua' }, role: { es: 'Listón', en: 'Batten', eu: 'Ziria' }, src: ['vinetur'] },
+  arenque: { cat: 'fish', h: 8, name: { es: 'Arenque', en: 'Herring', eu: 'Sardinzarra' }, role: { es: 'Perfil', en: 'Profile', eu: 'Profila' }, src: ['telecinco'] },
+  tomateSeco: { cat: 'other', h: 10, name: { es: 'Tomate seco', en: 'Dried tomato', eu: 'Tomate lehorra' }, role: { es: 'Teja árabe', en: 'Clay roof tile', eu: 'Teila arabiarra' }, src: ['bacFeira', 'gastroranking'] },
+  pepino: { cat: 'pickle', h: 6, name: { es: 'Pepino', en: 'Cucumber', eu: 'Pepinoa' }, role: { es: 'Ventana', en: 'Window', eu: 'Leihoa' }, src: ['vinetur'] },
+  gordal: { cat: 'olive', h: 26, name: { es: 'Aceituna gordal', en: 'Gordal olive', eu: 'Gordal oliba' }, role: { es: 'Zapata', en: 'Footing', eu: 'Zapata' }, src: ['bacReceta', 'hola'] },
+  aceitunaRellena: { cat: 'olive', h: 20, name: { es: 'Aceituna rellena de anchoa', en: 'Anchovy-stuffed olive', eu: 'Antxoaz betetako oliba' }, role: { es: 'Cimentación armada', en: 'Reinforced foundation', eu: 'Zimendu armatua' }, src: ['directoGilda', 'directoBanderillas'] },
   pina: { cat: 'banned', h: 16, name: { es: 'Piña', en: 'Pineapple', eu: 'Anana' }, role: { es: 'Material no homologado', en: 'Unapproved material', eu: 'Homologatu gabeko materiala' } },
+  mango: { cat: 'banned', h: 12, name: { es: 'Mango', en: 'Mango', eu: 'Mangoa' }, role: { es: 'Material no homologado', en: 'Unapproved material', eu: 'Homologatu gabeko materiala' }, src: ['vineturMango'] },
+  ostra: { cat: 'banned', h: 12, name: { es: 'Ostra', en: 'Oyster', eu: 'Ostra' }, role: { es: 'Material no homologado', en: 'Unapproved material', eu: 'Homologatu gabeko materiala' }, src: ['hola'] },
+  pastrami: { cat: 'banned', h: 10, name: { es: 'Pastrami', en: 'Pastrami', eu: 'Pastrami' }, role: { es: 'Material no homologado', en: 'Unapproved material', eu: 'Homologatu gabeko materiala' }, src: ['holaAceitunas'] },
 };
 
 // Short codes for pieces in shareable links (#/4?g=o,p,a,o).
-export const CODES = { anchoa: 'a', piparra: 'p', aceituna: 'o', boqueron: 'b', bonito: 't', pepinillo: 'c', aceitunaNegra: 'n', queso: 'q', tomate: 'm', pina: 'x', pulpo: 'u', mejillon: 'j', salmon: 's', atun: 'w', huevo: 'h', cebolleta: 'e' };
+export const CODES = { anchoa: 'a', piparra: 'p', aceituna: 'o', boqueron: 'b', bonito: 't', pepinillo: 'c', aceitunaNegra: 'n', queso: 'q', tomate: 'm', pina: 'x', pulpo: 'u', mejillon: 'j', salmon: 's', atun: 'w', huevo: 'h', cebolleta: 'e', piquillo: 'k', langostino: 'l', bacalao: 'd', sardina: 'r', arenque: 'g', tomateSeco: 'z', pepino: 'i', gordal: 'y', aceitunaRellena: 'f', mango: 'v', ostra: 'O', pastrami: 'P' };
 
 // Reference composition for the main drawing, bottom to top along the stick.
 export const CLASSIC = ['aceituna', 'piparra', 'piparra', 'piparra', 'anchoa', 'aceituna'];

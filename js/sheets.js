@@ -274,6 +274,7 @@ export function credits() {
     [1, MEASURES.flatMap((m) => m.src)],
     [2, JOBS.flatMap((j) => j.src)],
     [3, [...BOM.flatMap((b) => b.src), ...SIDES.flatMap((b) => b.src), ...BAR_PRICE.src]],
+    [4, Object.values(PIECES).flatMap((x) => x.src || [])],
     [5, VARIANTS.flatMap((v) => v.src)],
     [6, [...ORIGINS.flatMap((o) => o.src), ...SELF_CONTRADICTION.flatMap((s) => s.src), ...NAME_STORY.src, ...NAME_STORY.premiereSrc]],
     [7, PLACES.flatMap((p) => p.src)],

@@ -6,11 +6,18 @@ import { PIECES, CODES } from './data.js';
 import { block } from './pieces.js';
 import { esc } from './sheets.js';
 
-const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'pulpo', 'mejillon', 'salmon', 'bonito', 'atun', 'pepinillo', 'cebolleta', 'aceitunaNegra', 'huevo', 'queso', 'tomate', 'pina'];
+// Grouped by layer, the same categories that colour the drawings.
+const TRAY = [
+  ['fish', ['anchoa', 'boqueron', 'pulpo', 'mejillon', 'salmon', 'bonito', 'atun', 'langostino', 'bacalao', 'sardina', 'arenque']],
+  ['pickle', ['piparra', 'pepinillo', 'cebolleta', 'piquillo', 'pepino']],
+  ['olive', ['aceituna', 'aceitunaNegra', 'gordal', 'aceitunaRellena']],
+  ['other', ['huevo', 'queso', 'tomate', 'tomateSeco']],
+  ['banned', ['pina', 'mango', 'ostra', 'pastrami']],
+];
 const CODE = CODES;
 const DECODE = Object.fromEntries(Object.entries(CODE).map(([k, v]) => [v, k]));
 const MAX = 8;
-const W = { pina: 40, piparra: 58, pepinillo: 34, mejillon: 30 };
+const W = { pina: 40, piparra: 58, pepinillo: 34, mejillon: 30, piquillo: 34, langostino: 30, sardina: 34, arenque: 34, ostra: 30, pastrami: 28, pepino: 26 };
 
 let list = [];
 let history = [];
@@ -27,6 +34,7 @@ function pieceSVG(id, flip = false) {
 
 const M = {
   pina: { es: 'Piña en obra: expediente abierto.', en: 'Pineapple on site: file opened.', eu: 'Anana obran: espedientea irekita.' },
+  banned: (n) => ({ es: `${n.es} en obra: existe y tiene fuente, pero no está homologado. Expediente abierto.`, en: `${n.en} on site: it exists and has a source, but it is not approved. File opened.`, eu: `${n.eu} obran: badago eta iturria du, baina ez dago homologatuta. Espedientea irekita.` }),
   oliveOnly: { es: 'Esto es una aceituna con ambiciones.', en: 'This is an olive with ambitions.', eu: 'Hau asmo handiko oliba bat da.' },
   salad: { es: 'Esto es una ensalada en un palillo.', en: 'This is a salad on a toothpick.', eu: 'Hau makilatxo bateko entsalada da.' },
   noFacade: { es: 'Obra sin fachada: falta la piparra.', en: 'No facade: the piparra is missing.', eu: 'Fatxadarik gabeko obra: piparra falta da.' },
@@ -49,7 +57,8 @@ export function judge(l) {
   const fish = cat('fish'), olives = cat('olive'), greens = cat('pickle') + cat('other');
   const notes = [];
   let code;
-  if (n('pina')) { code = 'heresy'; notes.push(M.pina); }
+  const banned = l.find((x) => PIECES[x].cat === 'banned');
+  if (banned) { code = 'heresy'; notes.push(banned === 'pina' ? M.pina : M.banned(PIECES[banned].name)); }
   else if (!fish) { code = 'salad'; notes.push(l.length === 1 && olives === 1 ? M.oliveOnly : M.salad); if (n('piparra') && olives) notes.push(M.veggie); }
   else if (!n('piparra')) { code = 'heresy'; notes.push(M.noFacade); }
   else if (!olives) { code = 'heresy'; notes.push(M.noFound); }
@@ -73,11 +82,13 @@ export function render(initial) {
   shared = !!(initial && initial.length);
   list = shared ? initial.slice() : list;
   history = [];
-  const tray = TRAY.map((id) => `<li><button type="button" class="piece-btn cat-${PIECES[id].cat}" data-id="${id}" aria-label="${esc(t('add')(L(PIECES[id].name)))}">` +
-    `${pieceSVG(id)}<span class="pname">${esc(L(PIECES[id].name))}</span><span class="prole">${esc(L(PIECES[id].role))}</span></button></li>`).join('');
+  const lay = t('layers');
+  const tray = TRAY.map(([cat, ids]) => `<li class="tray-group"><h3 class="tray-h"><span class="sw sw-${cat}"></span>${esc(lay[cat])}</h3><ul class="tray-list">` +
+    ids.map((id) => `<li><button type="button" class="piece-btn cat-${PIECES[id].cat}" data-id="${id}" aria-label="${esc(t('add')(L(PIECES[id].name)))}">` +
+    `${pieceSVG(id)}<span class="pname">${esc(L(PIECES[id].name))}</span><span class="prole">${esc(L(PIECES[id].role))}</span></button></li>`).join('') + `</ul></li>`).join('');
   return `<header class="sheet-head"><p class="sheet-num">${t('sheetOf')('04', '07')}</p><h1 id="sheet-title" tabindex="-1">${esc(t('sheets')[3])}</h1><p class="lead">${esc(t('s4Lead'))}</p></header>` +
     `<div class="sheet-body assembly">` +
-    `<section class="tray" aria-labelledby="tray-h"><h2 id="tray-h">${esc(t('tray'))}</h2><ul class="tray-list">${tray}</ul></section>` +
+    `<section class="tray" aria-labelledby="tray-h"><h2 id="tray-h">${esc(t('tray'))}</h2><ul class="tray-groups">${tray}</ul></section>` +
     `<section class="site" aria-labelledby="site-h"><h2 id="site-h"><span id="site-title">${esc(shared ? t('sharedBuild') : t('onStick'))}</span> <span class="count mono" id="count"></span></h2>` +
     `<div class="dropzone" id="dz"><div class="stick-col" id="col" aria-live="polite"></div><p class="empty-lot" id="emptylot">${esc(t('empty'))}</p><div class="verdict" id="verdict" hidden></div></div>` +
     `<p class="hint">${esc(t('tapToRemove'))}</p><p class="toast" id="toast" role="status" aria-live="polite"></p>` +

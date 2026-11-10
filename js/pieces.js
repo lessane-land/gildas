@@ -41,6 +41,19 @@ const FRONT = {
     `<path d="M0 -8.6 L0 -11 M0 -8.6 L-3 -10.4 M0 -8.6 L3 -10.4 M0 -8.6 L-3.4 -8 M0 -8.6 L3.4 -8" class="ink-other thin"/>`,
   cebolleta: () => `<path d="M0 -6 C4.6 -6 6.4 -2.4 6.4 0.8 C6.4 4.2 3.6 6 0 6 C-3.6 6 -6.4 4.2 -6.4 0.8 C-6.4 -2.4 -4.6 -6 0 -6 Z" class="ink-pickle solid"/>` +
     `<path d="M0 -6 C2.4 -3 2.6 3 0 6 M0 -6 C-2.4 -3 -2.6 3 0 6" class="ink-pickle thin"/><path d="M0 -6 L0.4 -8.4" class="ink-pickle thin"/>`,
+  piquillo: () => `<path d="M-12 -4 C-6 -5.4 6 -4.6 13 0.4 C6 4.6 -6 5.2 -12 4 C-13.6 2.4 -13.6 -2.4 -12 -4 Z" class="ink-pickle solid"/><path d="M-12 -4 C-14 -5 -15 -6.6 -15.6 -8" class="ink-pickle thin"/><path d="M-8 0 C-2 -1 4 -0.6 9 0.4" class="ink-pickle thin" stroke-dasharray="1 1.2"/>`,
+  langostino: () => `<path d="M-10 4 C-12 -4 -4 -9 3 -7 C9 -5.4 11 0 8 4.6 L4.6 2.6 C6.4 0 5 -3.2 1.6 -3.6 C-3 -4 -6 -1 -5.6 4.6 Z" class="ink-fish solid"/>` +
+    `<path d="M-8 -3.4 L-4.4 -1.6 M-4 -6.8 L-2 -3.6 M1 -7.4 L1.4 -3.6 M5.6 -5.6 L4.2 -2.6 M8.6 -2 L5.8 -0.6" class="ink-fish thin"/><path d="M-10 4 L-12.6 6.4 M-7.6 4.6 L-7.6 7.6" class="ink-fish thin"/>`,
+  bacalao: () => `<rect x="-12" y="-5" width="24" height="10" rx="1.6" class="ink-fish solid"/><path d="M-8 -5 C-6 -1 -6 1 -8 5 M-2 -5 C0 -1 0 1 -2 5 M4 -5 C6 -1 6 1 4 5" class="ink-fish thin"/>`,
+  sardina: () => `<path d="M-14 0 C-8 -4 6 -4 11 -0.6 L15 -3.4 L14 0 L15 3.4 L11 0.6 C6 4 -8 4 -14 0 Z" class="ink-fish solid"/><path d="M-9 0 L8 0" class="ink-fish thin" stroke-dasharray="1.6 1"/>`,
+  arenque: () => `<path d="M-15 0.4 C-9 -3.6 7 -3.8 12 -1 L15.6 -3.2 L14.6 0.2 L15.6 3.6 L12 1.4 C7 3.8 -9 4 -15 0.4 Z" class="ink-fish solid"/><path d="M-11 -0.6 L-11 1.6 M-7 -1.8 L-7 2.2 M-3 -2.2 L-3 2.6 M1 -2.2 L1 2.6 M5 -2 L5 2.2" class="ink-fish thin"/>`,
+  tomateSeco: () => `<path d="M-9 -2 C-8 -5 -3 -4.4 0 -4.8 C3 -5.2 8 -5 9 -2 C10 1 8 4.6 4 4.4 C1 4.2 -1 5.2 -4 4.8 C-8 4.4 -10 1.4 -9 -2 Z" class="ink-other solid"/><path d="M-6 -1 C-3 0 -1 -1.6 2 -0.4 C4 0.4 5 -0.6 6.4 0" class="ink-other thin"/>`,
+  pepino: () => `<rect x="-11" y="-3" width="22" height="6" rx="1.4" class="ink-pickle solid"/><path d="M-7 0 L-5.6 0 M-2.6 0 L-1.2 0 M1.8 0 L3.2 0 M6 0 L7.4 0" class="ink-pickle thin"/>`,
+  gordal: () => `<ellipse cx="0" cy="0" rx="11.6" ry="13" class="ink-olive solid"/><path d="M-6.4 -7.8 A9 9 0 0 1 -1 -10.6" class="ink-olive thin"/><circle cx="7" cy="-8.6" r="1" class="ink-olive thin"/>`,
+  aceitunaRellena: () => `<ellipse cx="0" cy="0" rx="10" ry="9.6" class="ink-olive solid"/><ellipse cx="0" cy="-9.6" rx="3.2" ry="1.6" class="ink-fish solid"/><path d="M-5.5 -4 A7 7 0 0 1 -3 -6.6" class="ink-olive thin"/>`,
+  mango: () => `<rect x="-6" y="-6" width="12" height="12" class="ink-banned solid"/><path d="M-6 -2 L-2 -6 M-6 2 L2 -6 M-6 6 L6 -6 M-2 6 L6 -2 M2 6 L6 2" class="ink-banned thin"/>`,
+  ostra: () => `<path d="M-13 1 C-12 -5 -4 -6.4 2 -5.6 C8 -4.8 13 -2 13 1 C13 4 6 5.6 0 5.6 C-7 5.6 -13 4 -13 1 Z" class="ink-banned solid"/><path d="M-9 1 C-5 -2 3 -2.4 9 0.4 M-6 3.4 C-1 1.4 4 1.4 8 3" class="ink-banned thin"/>`,
+  pastrami: () => `<path d="M-12 -3 C-6 -6 6 -6 12 -3 L12 3 C6 6 -6 6 -12 3 Z" class="ink-banned solid"/><path d="M-12 -3 C-6 0 6 0 12 -3 M-12 0 C-6 3 6 3 12 0" class="ink-banned thin"/>`,
   pulpo: () => `<circle cx="0" cy="0" r="8" class="ink-fish solid"/><circle cx="0" cy="0" r="5.4" class="ink-fish thin"/>` +
     [0, 60, 120, 180, 240, 300].map((a) => `<circle cx="${R(6.7 * Math.cos(a * Math.PI / 180))}" cy="${R(6.7 * Math.sin(a * Math.PI / 180))}" r="0.75" class="ink-fish thin"/>`).join('') +
     `<path d="M-2 -1.4 L-1.4 -1.6 M1.6 0.8 L2.2 0.6 M-0.6 2 L0 1.8" class="ink-dimtone thin"/>`,
