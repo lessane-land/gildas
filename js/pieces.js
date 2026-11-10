@@ -22,13 +22,13 @@ const FRONT = {
   aceitunaNegra: () => `<ellipse cx="0" cy="0" rx="10" ry="9.6" class="ink-olive solid"/>` +
     `<ellipse cx="0" cy="0" rx="8.4" ry="8" class="ink-olive thin"/>` +
     `<path d="M-5 -4.6 A6 6 0 0 1 -1 -6.4" class="ink-olive thin"/>`,
-  // Whole piparras lie along the stick in a bundle, pierced through: long, thin, slightly
-  // curved, stem at the top, tip at the bottom. Drawn about 50 mm long (5 to 12 cm edible).
-  piparra: (flip) => `<g transform="scale(${flip ? -1 : 1},1)">` +
+  // Whole piparras cross the stick horizontally, pierced through the middle, stacked one on another.
+  // Long, thin, slightly curved: stem on one side, pointed tip on the other. About 50 mm (5 to 12 cm edible).
+  piparra: (flip) => `<g transform="scale(${flip ? -1 : 1},1)"><g transform="rotate(-90) translate(0 -1)">` +
     `<path d="M-2.6 -21 C-3.6 -10 -3 2 -1.2 12 C-0.4 17 0.6 21.4 1.6 24.6 C2 20 2.6 12 2.8 4 C3.1 -6 3.2 -14 2.6 -21 C1.4 -22.8 -1.4 -22.8 -2.6 -21 Z" class="ink-pickle solid"/>` +
     `<path d="M0 -22.2 C0.2 -24.6 1.2 -26.4 3.4 -27.6" class="ink-pickle"/>` +
-    `<path d="M0 -18.5 C0 -6 0.5 6 1.2 18" class="ink-pickle thin" stroke-dasharray="1 1.3"/>` +
-    `<circle cx="0" cy="-14" r="0.55" class="ink-structure fillink"/><circle cx="0.8" cy="12" r="0.55" class="ink-structure fillink"/></g>`,
+    `<path d="M0 -18.5 C0 -6 0.5 6 1.2 18" class="ink-pickle thin" stroke-dasharray="1 1.3"/></g>` +
+    `<circle cx="0" cy="0" r="0.6" class="ink-structure fillink"/></g>`,
   anchoa: () => ribbon('M-14 -9.5 C-4 -13.5 10 -12 12 -6 C14 0 -14 0 -12 6 C-10 12 4 13.5 14 9.5', 'fish', false),
   boqueron: () => ribbon('M-14 -9.5 C-4 -13.5 10 -12 12 -6 C14 0 -14 0 -12 6 C-10 12 4 13.5 14 9.5', 'fish', true),
   bonito: () => `<rect x="-11" y="-6" width="22" height="12" rx="2.4" class="ink-fish solid"/>` +
@@ -64,7 +64,7 @@ const FRONT = {
 
 // Side elevation: the same block seen at 90 degrees. Only pieces whose shape changes need one.
 const SIDE = {
-  piparra: (flip) => `<g transform="scale(${flip ? -0.6 : 0.6},1)">${FRONT.piparra(false)}</g>`,
+  piparra: () => `<circle cx="0" cy="0" r="3.2" class="ink-pickle solid"/><circle cx="0" cy="0" r="1.4" class="ink-pickle thin"/>`,
   pepinillo: () => `<circle cx="0" cy="0" r="4.6" class="ink-pickle solid"/>`,
   anchoa: () => ribbon('M-2.6 -11 L2.6 -6 L-2.6 0 L2.6 6 L-2.6 11', 'fish', false),
   boqueron: () => ribbon('M-2.6 -11 L2.6 -6 L-2.6 0 L2.6 6 L-2.6 11', 'fish', true),
@@ -92,33 +92,18 @@ export function stack(list, x, yBottom, opts = {}) {
   let y = yBottom - GRIP;
   const placed = [];
   let body = '';
-  let back = ''; // piparras are longer than their slot: drawn behind, so olives and anchovy sit on top
-  for (let i = 0; i < list.length; i++) {
-    const id = list[i];
-    if (id === 'piparra') {
-      // consecutive piparras are pierced together: one bundle, side by side, same height
-      let k = 1;
-      while (list[i + k] === 'piparra') k++;
-      const h = PIECES.piparra.h;
-      const cy = y - h / 2;
-      for (let j = 0; j < k; j++) {
-        const dx = (j - (k - 1) / 2) * (opts.view === 'side' ? 2.4 : 4.6);
-        const tilt = (j - (k - 1) / 2) * 4;
-        back += `<g transform="translate(${R(x + dx)} ${R(cy)}) rotate(${tilt})">${block(id, { view: opts.view, flip: j % 2 === 1 })}</g>`;
-        placed.push({ id, top: y - h, bottom: y, cy, bundle: k });
-      }
-      y -= h;
-      i += k - 1;
-      continue;
-    }
+  let pip = 0;
+  for (const id of list) {
     const h = PIECES[id]?.h ?? 10;
     const cy = y - h / 2;
-    body += `<g transform="translate(${R(x)} ${R(cy)})">${block(id, { view: opts.view })}</g>`;
+    let flip = false, tilt = 0;
+    if (id === 'piparra') { flip = pip % 2 === 1; tilt = opts.view === 'side' ? 0 : [-3, 2, -1, 4][pip % 4]; pip++; }
+    body += `<g transform="translate(${R(x)} ${R(cy)}) rotate(${tilt})">${block(id, { view: opts.view, flip })}</g>`;
     placed.push({ id, top: y - h, bottom: y, cy });
     y -= h;
   }
   const yTip = y - TIP;
-  return { svg: back + stick(x, yBottom, yTip) + body, yTip, yBottom, placed, length: yBottom - yTip };
+  return { svg: stick(x, yBottom, yTip) + body, yTip, yBottom, placed, length: yBottom - yTip };
 }
 
 // Architectural dimension lines: extension lines, 45 degree ticks, text in mm.

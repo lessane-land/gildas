@@ -84,7 +84,7 @@ export const KIND = {
 // h = height the piece takes along the stick, in mm (for stacking drawings).
 export const PIECES = {
   anchoa: { cat: 'fish', h: 24, name: { es: 'Anchoa del Cantábrico', en: 'Cantabrian anchovy', eu: 'Kantauriko antxoa' }, role: { es: 'Cubierta', en: 'Roof membrane', eu: 'Estalkia' } },
-  piparra: { cat: 'pickle', h: 32, name: { es: 'Piparra de Ibarra', en: 'Ibarra piparra', eu: 'Ibarrako piparra' }, role: { es: 'Fachada', en: 'Facade', eu: 'Fatxada' } },
+  piparra: { cat: 'pickle', h: 7, name: { es: 'Piparra de Ibarra', en: 'Ibarra piparra', eu: 'Ibarrako piparra' }, role: { es: 'Fachada', en: 'Facade', eu: 'Fatxada' } },
   aceituna: { cat: 'olive', h: 20, name: { es: 'Aceituna manzanilla', en: 'Manzanilla olive', eu: 'Manzanilla oliba' }, role: { es: 'Cimentación', en: 'Foundation', eu: 'Zimendua' } },
   boqueron: { cat: 'fish', h: 24, name: { es: 'Boquerón en vinagre', en: 'Boquerón in vinegar', eu: 'Ozpinetako bokeroia' }, role: { es: 'Cubierta clara', en: 'Light roof', eu: 'Estalki argia' } },
   bonito: { cat: 'fish', h: 12, name: { es: 'Bonito del norte', en: 'Albacore (bonito)', eu: 'Hegaluzea' }, role: { es: 'Forjado', en: 'Floor slab', eu: 'Forjatua' } },
@@ -111,7 +111,7 @@ export const MEASURES = [
   {
     id: 'piparra', value: '50 a 120', unit: 'mm',
     what: { es: 'Longitud comestible de la piparra con Eusko Label', en: 'Edible length of an Eusko Label piparra', eu: 'Eusko Label piparraren luzera jangarria' },
-    note: { es: 'Lo fija su reglamento de calidad: entre 5 y 12 cm. En la gilda van enteras, en manojo a lo largo del palillo, o en mitades entre pieza y pieza.', en: 'Set by its quality regulation: 5 to 12 cm. On a gilda they go whole, bunched along the stick, or in halves between pieces.', eu: 'Kalitate araudiak finkatzen du: 5 eta 12 cm artean. Gildan osorik doaz, makilatxoan zehar sorta eginda, edo erdibituta pieza artean.' },
+    note: { es: 'Lo fija su reglamento de calidad: entre 5 y 12 cm. En la gilda se ensartan atravesadas por el medio, enteras o en mitades.', en: 'Set by its quality regulation: 5 to 12 cm. On a gilda they are pierced through the middle, whole or in halves.', eu: 'Kalitate araudiak finkatzen du: 5 eta 12 cm artean. Gildan erditik zeharkatuta sartzen dira, osorik edo erdibituta.' },
     src: ['holaPip', 'deia', 'euskadiReg', 'directoGilda', 'directoCalientes'],
   },
   {

@@ -119,8 +119,6 @@ path.ink-fish:not(.solid):not(.thin), path.ink-pickle:not(.solid):not(.thin) { f
 .rib { fill: none; }
 .dwg .hidden { fill: none; stroke-width: .3; stroke-dasharray: 1.2 1; }
 .bom tr.group th { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; border-top: 2px solid var(--rule); padding-top: 14px; }
-.bundle { display: flex; justify-content: center; position: relative; z-index: 1; }
-.bundle .placed + .placed { margin-left: calc(-5 * var(--mm)); }
 .board-stroke { stroke: var(--board); }
 .ink-dimtone { stroke: var(--dim); fill: none; }
 .tint-fish { stroke: #3d2a3e; }

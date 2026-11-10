@@ -10,7 +10,7 @@ const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'pulpo', 'mejillon', 
 const CODE = CODES;
 const DECODE = Object.fromEntries(Object.entries(CODE).map(([k, v]) => [v, k]));
 const MAX = 8;
-const W = { pina: 40, piparra: 10, pepinillo: 34, mejillon: 30 };
+const W = { pina: 40, piparra: 58, pepinillo: 34, mejillon: 30 };
 
 let list = [];
 let history = [];
@@ -20,7 +20,7 @@ export function decode(s) { return (s || '').split(',').map((c) => DECODE[c]).fi
 const encode = (l) => l.map((id) => CODE[id]).join(',');
 
 function pieceSVG(id, flip = false) {
-  const h = id === 'piparra' ? 56 : PIECES[id].h + 2; // a whole piparra is longer than its slot on the stick
+  const h = PIECES[id].h + 2;
   const w = W[id] || 32;
   return `<svg class="psvg" viewBox="${-w / 2} ${-h / 2} ${w} ${h}" style="--w:${w};--h:${h}" aria-hidden="true">${block(id, { flip })}</svg>`;
 }
@@ -118,15 +118,8 @@ export function mount(root, opts = {}) {
   const say = (msg) => { toast.textContent = msg; clearTimeout(say.t); say.t = setTimeout(() => (toast.textContent = ''), 2600); };
 
   function draw() {
-    // consecutive piparras are pierced together, side by side, like on the plans
-    const btn = (id, i, flip) => `<button type="button" class="placed cat-${PIECES[id].cat}" data-i="${i}" aria-label="${esc(t('remove')(L(PIECES[id].name)))}">${pieceSVG(id, flip)}</button>`;
-    let html = '';
-    for (let i = 0; i < list.length; i++) {
-      if (list[i] !== 'piparra') { html += btn(list[i], i); continue; }
-      let k = 0; let b = '';
-      while (list[i + k] === 'piparra') { b += btn('piparra', i + k, k % 2 === 1); k++; }
-      html += `<div class="bundle">${b}</div>`; i += k - 1;
-    }
+    let pip = 0;
+    const html = list.map((id, i) => `<button type="button" class="placed cat-${PIECES[id].cat}" data-i="${i}" aria-label="${esc(t('remove')(L(PIECES[id].name)))}">${pieceSVG(id, id === 'piparra' && pip++ % 2 === 1)}</button>`).join('');
     col.innerHTML = html;
     root.querySelector('#emptylot').hidden = list.length > 0;
     count.textContent = `${list.length}/${MAX}`;

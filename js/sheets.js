@@ -40,8 +40,8 @@ export function sheet1() {
   s += `<g class="drawin">${front.svg}${side.svg}`;
   // Plan view from the tip: the top olive hides most of it, the folded piparras are hidden lines.
   s += `<g transform="translate(${px} 52)">` +
+    [-10, 3, 15].map((a, i) => `<g transform="rotate(${a})">${block('piparra', { flip: i % 2 === 1 })}</g>`).join('') +
     `<g transform="rotate(68)"><rect x="-13" y="-3.2" width="26" height="6.4" rx="3.2" class="ink-fish solid"/></g>` +
-    [-4.4, 0, 4.4].map((dx) => `<rect x="${dx - 3.6}" y="-5.4" width="7.2" height="10.8" rx="3" class="ink-pickle hidden"/>`).join('') +
     `<circle r="10" class="ink-olive solid"/><circle r="1.2" class="ink-structure fillink"/>` +
     `<path d="M-14 0 L14 0 M0 -14 L0 14" class="ink-structure axis"/></g>`;
   // Side installations: the vermouth and the crisps, on their own slab.
@@ -50,14 +50,14 @@ export function sheet1() {
   // Dimensions
   s += ext(fx - 3, front.yTip, 12, front.yTip) + ext(fx - 3, base, 12, base);
   s += dimV(15, front.yTip, base, '≈ 100');
-  s += ext(fx + 9, pip1.cy - 22.8, fx + 32, pip1.cy - 22.8) + ext(fx + 9, pip1.cy + 24.6, fx + 32, pip1.cy + 24.6);
-  s += dimV(fx + 30, pip1.cy - 22.8, pip1.cy + 24.6, '50 a 120', 1);
-  s += ext(fx - 10, olive.cy, fx - 10, 135) + ext(fx + 10, olive.cy, fx + 10, 135);
-  s += dimH(133, fx - 10, fx + 10, '≈ 20 *', -1);
+  s += ext(fx - 22.8, pip1.cy, fx - 22.8, 143) + ext(fx + 24.6, pip1.cy, fx + 24.6, 143);
+  s += dimH(141, fx - 22.8, fx + 24.6, '50 a 120', -1);
+  s += ext(fx - 10, olive.cy, fx - 10, 134) + ext(fx + 10, olive.cy, fx + 10, 134);
+  s += dimH(132, fx - 10, fx + 10, '≈ 20 *', -1);
   // Balloons: part numbers keyed to the legend
   s += balloon(fx + 9, front.yTip + 2, 1) + `<path d="M${fx + 6} ${front.yTip + 3.4} L${fx + 1.4} ${front.yTip + 6}" class="leader-l"/>`;
   s += balloon(fx - 24, anch.cy - 6, 2) + `<path d="M${fx - 21} ${anch.cy - 5} L${fx - 13} ${anch.cy - 3}" class="leader-l"/>`;
-  s += balloon(fx - 22, pip1.cy + 4, 3) + `<path d="M${fx - 19} ${pip1.cy + 3.6} L${fx - 8} ${pip1.cy + 2}" class="leader-l"/>`;
+  s += balloon(fx + 34, pip1.cy - 9, 3) + `<path d="M${fx + 31.4} ${pip1.cy - 7.6} L${fx + 24} ${pip1.cy - 3}" class="leader-l"/>`;
   s += balloon(fx - 22, olive2.cy - 4, 4) + `<path d="M${fx - 19} ${olive2.cy - 3.4} L${fx - 10} ${olive2.cy - 2}" class="leader-l"/>`;
   s += viewTitle(fx, 152, t('front')) + viewTitle(sx, 152, t('side')) + viewTitle(px, 78, t('plan')) + viewTitle(205, 152, t('sides'));
   s += northArrow(236, 18, 6, t('north'));
@@ -89,10 +89,10 @@ export function sheet2() {
   const rows = [
     { id: 'aceite', y: 14, job: 'aceite' },
     { id: 'aceituna', y: 36, job: 'aceituna' },
-    { id: 'anchoa', y: 62, job: 'anchoa' },
-    { id: 'piparra', y: 106, job: 'piparra', dx: -8 },
-    { id: 'piparra', y: 106, flip: true },
-    { id: 'piparra', y: 106, dx: 8 },
+    { id: 'anchoa', y: 66, job: 'anchoa' },
+    { id: 'piparra', y: 96, job: 'piparra' },
+    { id: 'piparra', y: 108, flip: true },
+    { id: 'piparra', y: 120 },
     { id: 'aceituna', y: 150 },
   ];
   let s = svgOpen(W, H, t('sheets')[1]);
@@ -115,7 +115,7 @@ export function sheet2() {
   s += lab('aceite', ax + 6, 14, 150, 12);
   s += lab('aceituna', ax + 10, 36, 150, 36, ' ×2');
   s += lab('anchoa', ax + 14, 62, 150, 62);
-  s += lab('piparra', ax + 11, 104, 150, 104, ' ×3');
+  s += lab('piparra', ax + 22, 108, 150, 104, ' ×3');
   s += `<g class="leader"><circle cx="${ax + 9}" cy="150" r="0.7"/><path d="M${ax + 9} 150 L150 150 L154 150"/><text x="156" y="151.1" class="t-small">${esc(L({ es: 'ver arriba', en: 'see above', eu: 'ikus goian' }))}</text></g>`;
   s += leader(30, 120, 12, 46, [{ text: esc(t('stick')), cls: 't-label ink-txt-structure' }, { text: esc(L(TAGS.structure)), cls: 't-tag' }], 'start');
   s += `</svg>`;
