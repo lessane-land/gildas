@@ -214,7 +214,7 @@ export function sheet7() {
   const html = Object.entries(byCity).map(([city, list]) => `<section class="city"><h2>${esc(city)}</h2><ul class="places">` +
     list.map((p, i) => {
       const q = encodeURIComponent(`${p.name}, ${L(p.addr)}, ${city}`);
-      return `<li class="place"><p class="sheet-num">${city === 'Bilbao' ? 'BIO' : 'DON'}-${String(i + 1).padStart(2, '0')}</p><h3>${esc(p.name)}</h3>` +
+      return `<li class="place"><p class="sheet-num">${({ Donostia: 'DON', Bilbao: 'BIO', Madrid: 'MAD' })[city]}-${String(i + 1).padStart(2, '0')}</p><h3>${esc(p.name)}</h3>` +
         `<p class="mono addr">${esc(L(p.addr))}</p><p>${esc(L(p.says))}</p>${srcLinks(p.src)}` +
         `<a class="btn ghost" href="https://www.openstreetmap.org/search?query=${q}" target="_blank" rel="noopener noreferrer">${pin}<span>${esc(t('map'))}</span></a></li>`;
     }).join('') + `</ul></section>`).join('');
