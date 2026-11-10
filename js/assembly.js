@@ -6,7 +6,7 @@ import { PIECES, CODES } from './data.js';
 import { block } from './pieces.js';
 import { esc } from './sheets.js';
 
-const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'pulpo', 'mejillon', 'salmon', 'bonito', 'atun', 'pepinillo', 'aceitunaNegra', 'huevo', 'queso', 'tomate', 'pina'];
+const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'pulpo', 'mejillon', 'salmon', 'bonito', 'atun', 'pepinillo', 'cebolleta', 'aceitunaNegra', 'huevo', 'queso', 'tomate', 'pina'];
 const CODE = CODES;
 const DECODE = Object.fromEntries(Object.entries(CODE).map(([k, v]) => [v, k]));
 const MAX = 8;

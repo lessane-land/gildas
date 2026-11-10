@@ -39,6 +39,8 @@ const FRONT = {
     `<path d="M-12 4.4 L8.4 4.4" class="ink-other thin"/>`,
   tomate: () => `<circle cx="0" cy="0" r="8.6" class="ink-other solid"/>` +
     `<path d="M0 -8.6 L0 -11 M0 -8.6 L-3 -10.4 M0 -8.6 L3 -10.4 M0 -8.6 L-3.4 -8 M0 -8.6 L3.4 -8" class="ink-other thin"/>`,
+  cebolleta: () => `<path d="M0 -6 C4.6 -6 6.4 -2.4 6.4 0.8 C6.4 4.2 3.6 6 0 6 C-3.6 6 -6.4 4.2 -6.4 0.8 C-6.4 -2.4 -4.6 -6 0 -6 Z" class="ink-pickle solid"/>` +
+    `<path d="M0 -6 C2.4 -3 2.6 3 0 6 M0 -6 C-2.4 -3 -2.6 3 0 6" class="ink-pickle thin"/><path d="M0 -6 L0.4 -8.4" class="ink-pickle thin"/>`,
   pulpo: () => `<circle cx="0" cy="0" r="8" class="ink-fish solid"/><circle cx="0" cy="0" r="5.4" class="ink-fish thin"/>` +
     [0, 60, 120, 180, 240, 300].map((a) => `<circle cx="${R(6.7 * Math.cos(a * Math.PI / 180))}" cy="${R(6.7 * Math.sin(a * Math.PI / 180))}" r="0.75" class="ink-fish thin"/>`).join('') +
     `<path d="M-2 -1.4 L-1.4 -1.6 M1.6 0.8 L2.2 0.6 M-0.6 2 L0 1.8" class="ink-dimtone thin"/>`,
