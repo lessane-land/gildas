@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gilda · Plano de obra</title>
+<meta name="description" content="La gilda como proyecto de obra: planos, secciones, mediciones y un montaje que puedes hacer tú. The gilda pintxo as a construction project.">
+<meta name="theme-color" content="#0d0f12">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Gilda · Plano de obra">
+<meta property="og:description" content="Proyecto: Gilda. Escala 1:1. Planos, despiece, presupuesto y un inspector de obra muy serio.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/site.css">
+<script type="module" src="js/main.js"></script>
+</head>
+<body>
+<a class="skip" href="#app">Saltar al plano</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- red pencil: displaces the stroke a little so the inspector looks hand drawn -->
+    <filter id="wobble" x="-5%" y="-10%" width="110%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6"/>
+    </filter>
+  </defs>
+</svg>
+<header class="top">
+  <a class="brand" href="#/1">
+    <svg viewBox="0 0 24 24" class="brand-mark" aria-hidden="true"><path d="M12 2.5v19"/><circle cx="12" cy="6.5" r="3"/><path d="M6 11.5c4-1.6 8-1.6 12 0M6.6 14.5c3.6-1.3 7.2-1.3 10.8 0"/><circle cx="12" cy="18" r="2.4"/></svg>
+    <span class="brand-name">Gilda</span><span class="brand-sub">Plano de obra</span>
+  </a>
+  <div class="top-right">
+    <p class="eubeta" id="eubeta" hidden></p>
+    <div class="langs" id="langs" role="group"></div>
+  </div>
+</header>
+<nav class="tabs" id="nav" aria-label="Planos"></nav>
+<main id="app" class="board" tabindex="-1"></main>
+<footer class="foot">
+  <a href="#/creditos" id="credits-link">Créditos</a>
+  <span id="privacy"></span>
+  <a class="kofi" id="kofi" href="https://ko-fi.com/lessane" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M4 9h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M16 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8 3.5c0 1.2 1 1.4 1 2.6M11.5 3.5c0 1.2 1 1.4 1 2.6"/></svg>
+    <span>Ko-fi</span>
+  </a>
+</footer>
+</body>
+</html>
