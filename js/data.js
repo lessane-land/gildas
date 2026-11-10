@@ -46,6 +46,8 @@ export const SOURCES = {
   esmadridVermut: { pub: 'esMADRID (Ayuntamiento de Madrid)', title: 'Plano de vermuterías de Madrid', url: 'https://www.esmadrid.com/sites/default/files/plano-vermuterias-madrid.pdf', kind: 'official' },
   newtableHaus: { pub: 'NewTable', title: 'Gilda Haus, Madrid', url: 'https://es.newtable.com/ciudades/madrid/restaurantes/gilda-haus-madrid', kind: 'guide' },
   tableMadrid: { pub: 'TableJourney', title: 'Gilda tapas in Madrid centro', url: 'https://tablejourney.com/spain/madrid/street-food/rosales-gilda-cantos/', kind: 'guide' },
+  directoGilda: { pub: 'Directo al Paladar', title: 'Gilda clásica: receta del pincho más famoso del País Vasco', url: 'https://www.directoalpaladar.com/recetas-de-aperitivos/gilda-clasica-receta-pincho-mas-famoso-pais-vasco', kind: 'press' },
+  directoCalientes: { pub: 'Directo al Paladar', title: 'Gildas calientes (cita a Juan Mari Arzak)', url: 'https://www.directoalpaladar.com/recetas-de-aperitivos/gildas-calientes-receta-de-aperitivo', kind: 'press' },
   doeatVermut: { pub: 'Do Eat Better Experience', title: 'Mejores bares de vermut en Madrid', url: 'https://doeatbetterexperience.com/es/blog/mejores-bares-vermut-madrid/', kind: 'guide' },
   tableArdosa: { pub: 'TableJourney', title: 'Bodega de la Ardosa', url: 'https://tablejourney.com/spain/madrid/casual-dining/bodega-de-la-ardosa/', kind: 'guide' },
   holaPatatas: { pub: '¡HOLA!', title: 'Aperitivos imprescindibles para el vermut', url: 'https://www.hola.com/seleccion/20200818173508/aperitivos-vermut-imprescindibles/', kind: 'press' },
@@ -82,7 +84,7 @@ export const KIND = {
 // h = height the piece takes along the stick, in mm (for stacking drawings).
 export const PIECES = {
   anchoa: { cat: 'fish', h: 24, name: { es: 'Anchoa del Cantábrico', en: 'Cantabrian anchovy', eu: 'Kantauriko antxoa' }, role: { es: 'Cubierta', en: 'Roof membrane', eu: 'Estalkia' } },
-  piparra: { cat: 'pickle', h: 28, name: { es: 'Piparra de Ibarra', en: 'Ibarra piparra', eu: 'Ibarrako piparra' }, role: { es: 'Fachada', en: 'Facade', eu: 'Fatxada' } },
+  piparra: { cat: 'pickle', h: 32, name: { es: 'Piparra de Ibarra', en: 'Ibarra piparra', eu: 'Ibarrako piparra' }, role: { es: 'Fachada', en: 'Facade', eu: 'Fatxada' } },
   aceituna: { cat: 'olive', h: 20, name: { es: 'Aceituna manzanilla', en: 'Manzanilla olive', eu: 'Manzanilla oliba' }, role: { es: 'Cimentación', en: 'Foundation', eu: 'Zimendua' } },
   boqueron: { cat: 'fish', h: 24, name: { es: 'Boquerón en vinagre', en: 'Boquerón in vinegar', eu: 'Ozpinetako bokeroia' }, role: { es: 'Cubierta clara', en: 'Light roof', eu: 'Estalki argia' } },
   bonito: { cat: 'fish', h: 12, name: { es: 'Bonito del norte', en: 'Albacore (bonito)', eu: 'Hegaluzea' }, role: { es: 'Forjado', en: 'Floor slab', eu: 'Forjatua' } },
@@ -98,6 +100,9 @@ export const PIECES = {
   pina: { cat: 'banned', h: 16, name: { es: 'Piña', en: 'Pineapple', eu: 'Anana' }, role: { es: 'Material no homologado', en: 'Unapproved material', eu: 'Homologatu gabeko materiala' } },
 };
 
+// Short codes for pieces in shareable links (#/4?g=o,p,a,o).
+export const CODES = { anchoa: 'a', piparra: 'p', aceituna: 'o', boqueron: 'b', bonito: 't', pepinillo: 'c', aceitunaNegra: 'n', queso: 'q', tomate: 'm', pina: 'x', pulpo: 'u', mejillon: 'j', salmon: 's', atun: 'w', huevo: 'h' };
+
 // Reference composition for the main drawing, bottom to top along the stick.
 export const CLASSIC = ['aceituna', 'piparra', 'piparra', 'piparra', 'anchoa', 'aceituna'];
 
@@ -106,8 +111,8 @@ export const MEASURES = [
   {
     id: 'piparra', value: '50 a 120', unit: 'mm',
     what: { es: 'Longitud comestible de la piparra con Eusko Label', en: 'Edible length of an Eusko Label piparra', eu: 'Eusko Label piparraren luzera jangarria' },
-    note: { es: 'Lo fija su reglamento de calidad: entre 5 y 12 cm. En el palillo va doblada en C, así que ocupa la mitad.', en: 'Set by its quality regulation: 5 to 12 cm. On the stick it is folded into a C, so it takes half that.', eu: 'Kalitate araudiak finkatzen du: 5 eta 12 cm artean. Makilatxoan C erara tolestuta doa, beraz erdia hartzen du.' },
-    src: ['holaPip', 'deia', 'euskadiReg', 'bacPulpo'],
+    note: { es: 'Lo fija su reglamento de calidad: entre 5 y 12 cm. En la gilda van enteras, en manojo a lo largo del palillo, o en mitades entre pieza y pieza.', en: 'Set by its quality regulation: 5 to 12 cm. On a gilda they go whole, bunched along the stick, or in halves between pieces.', eu: 'Kalitate araudiak finkatzen du: 5 eta 12 cm artean. Gildan osorik doaz, makilatxoan zehar sorta eginda, edo erdibituta pieza artean.' },
+    src: ['holaPip', 'deia', 'euskadiReg', 'directoGilda', 'directoCalientes'],
   },
   {
     id: 'anchoa', value: '60 a 140', unit: 'mm',

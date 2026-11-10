@@ -15,8 +15,9 @@ function parse() {
   const [path, query] = h.split('?');
   const params = new URLSearchParams(query || '');
   if (path === 'creditos') return { id: 'creditos', params };
-  const n = parseInt(path, 10);
-  return { id: n >= 1 && n <= 7 ? n : 1, params };
+  const [first, sub] = path.split('/');
+  const n = parseInt(first, 10);
+  return { id: n >= 1 && n <= 7 ? n : 1, sub, params };
 }
 
 function renderChrome() {
@@ -57,7 +58,7 @@ function render(focus) {
     case 2: html = sheet2(); break;
     case 3: html = sheet3(); break;
     case 4: html = assembly.render(assembly.decode(r.params.get('g'))); break;
-    case 5: html = sheet5(); break;
+    case 5: html = sheet5(r.sub); break;
     case 6: html = sheet6(); break;
     case 7: html = sheet7(); break;
     default: html = credits();

@@ -205,6 +205,10 @@ h3.ink-txt-fish { color: var(--fish); } h3.ink-txt-pickle { color: var(--pickle)
 .variants { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 16px; }
 .vsheet { display: grid; grid-template-columns: 120px 1fr; gap: 14px; border: 2px solid var(--rule); padding: 10px; background: var(--panel); }
 .vsheet .dwg-wrap { padding: 2px; }
+.vthumb { display: block; align-self: start; }
+.vthumb:hover { border-color: var(--dim); }
+.vinfo .btn { margin-top: 10px; }
+.notes nav.controls .btn { flex: 1 1 auto; }
 .vinfo h2 { color: var(--line); font-size: 17px; text-transform: none; letter-spacing: 0; margin: 2px 0 6px; }
 .vinfo p { font-size: 13px; }
 .vinfo .legend { margin-bottom: 8px; }

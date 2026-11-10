@@ -2,15 +2,15 @@
 // Pointer Events give one code path for mouse, pen and touch. Tapping a piece also adds it,
 // so the game works with a keyboard and without dragging at all.
 import { t, L } from './i18n.js';
-import { PIECES } from './data.js';
+import { PIECES, CODES } from './data.js';
 import { block } from './pieces.js';
 import { esc } from './sheets.js';
 
 const TRAY = ['anchoa', 'piparra', 'aceituna', 'boqueron', 'pulpo', 'mejillon', 'salmon', 'bonito', 'atun', 'pepinillo', 'aceitunaNegra', 'huevo', 'queso', 'tomate', 'pina'];
-const CODE = { anchoa: 'a', piparra: 'p', aceituna: 'o', boqueron: 'b', bonito: 't', pepinillo: 'c', aceitunaNegra: 'n', queso: 'q', tomate: 'm', pina: 'x', pulpo: 'u', mejillon: 'j', salmon: 's', atun: 'w', huevo: 'h' };
+const CODE = CODES;
 const DECODE = Object.fromEntries(Object.entries(CODE).map(([k, v]) => [v, k]));
 const MAX = 8;
-const W = { pina: 40, piparra: 14, pepinillo: 34, mejillon: 30 };
+const W = { pina: 40, piparra: 10, pepinillo: 34, mejillon: 30 };
 
 let list = [];
 let history = [];
@@ -20,7 +20,7 @@ export function decode(s) { return (s || '').split(',').map((c) => DECODE[c]).fi
 const encode = (l) => l.map((id) => CODE[id]).join(',');
 
 function pieceSVG(id, flip = false) {
-  const h = PIECES[id].h + 2;
+  const h = id === 'piparra' ? 56 : PIECES[id].h + 2; // a whole piparra is longer than its slot on the stick
   const w = W[id] || 32;
   return `<svg class="psvg" viewBox="${-w / 2} ${-h / 2} ${w} ${h}" style="--w:${w};--h:${h}" aria-hidden="true">${block(id, { flip })}</svg>`;
 }

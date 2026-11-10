@@ -1,6 +1,6 @@
 // One render function per plan sheet. Each returns HTML; drawings are inline SVG in mm.
 import { t, L } from './i18n.js';
-import { SOURCES, KIND, PIECES, CLASSIC, MEASURES, JOBS, TAGS, BOM, SIDES, BAR_PRICE, ORIGINS, SELF_CONTRADICTION, NAME_STORY, VARIANTS, PLACES } from './data.js';
+import { CODES, SOURCES, KIND, PIECES, CLASSIC, MEASURES, JOBS, TAGS, BOM, SIDES, BAR_PRICE, ORIGINS, SELF_CONTRADICTION, NAME_STORY, VARIANTS, PLACES } from './data.js';
 import { block, stack, stick, dimV, dimH, ext, leader, northArrow, svgOpen } from './pieces.js';
 
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -50,8 +50,8 @@ export function sheet1() {
   // Dimensions
   s += ext(fx - 3, front.yTip, 12, front.yTip) + ext(fx - 3, base, 12, base);
   s += dimV(15, front.yTip, base, '≈ 100');
-  s += ext(fx + 9, pip1.top, fx + 32, pip1.top) + ext(fx + 9, pip1.bottom, fx + 32, pip1.bottom);
-  s += dimV(fx + 30, pip1.top, pip1.bottom, '½ · 50 a 120', 1);
+  s += ext(fx + 9, pip1.cy - 22.8, fx + 32, pip1.cy - 22.8) + ext(fx + 9, pip1.cy + 24.6, fx + 32, pip1.cy + 24.6);
+  s += dimV(fx + 30, pip1.cy - 22.8, pip1.cy + 24.6, '50 a 120', 1);
   s += ext(fx - 10, olive.cy, fx - 10, 135) + ext(fx + 10, olive.cy, fx + 10, 135);
   s += dimH(133, fx - 10, fx + 10, '≈ 20 *', -1);
   // Balloons: part numbers keyed to the legend
@@ -85,21 +85,21 @@ export function sheet1() {
 
 // ---------- 02 Despiece ----------
 export function sheet2() {
-  const W = 230, H = 176, ax = 92;
+  const W = 230, H = 172, ax = 92;
   const rows = [
     { id: 'aceite', y: 14, job: 'aceite' },
     { id: 'aceituna', y: 36, job: 'aceituna' },
-    { id: 'anchoa', y: 66, job: 'anchoa' },
-    { id: 'piparra', y: 104, job: 'piparra', dx: -9 },
-    { id: 'piparra', y: 104, flip: true },
-    { id: 'piparra', y: 104, dx: 9 },
-    { id: 'aceituna', y: 142 },
+    { id: 'anchoa', y: 62, job: 'anchoa' },
+    { id: 'piparra', y: 106, job: 'piparra', dx: -8 },
+    { id: 'piparra', y: 106, flip: true },
+    { id: 'piparra', y: 106, dx: 8 },
+    { id: 'aceituna', y: 150 },
   ];
   let s = svgOpen(W, H, t('sheets')[1]);
-  s += `<path d="M${ax} 6 L${ax} 160" class="ink-structure axis"/>`;
+  s += `<path d="M${ax} 6 L${ax} 166" class="ink-structure axis"/>`;
   s += `<g class="drawin">`;
   // the beam, pulled out to the side
-  s += stick(30, 160, 60);
+  s += stick(30, 164, 64);
   s += `<path d="M${ax} 22 L${ax} 26" class="ink-olive" stroke-dasharray="1 1.4"/>`;
   rows.forEach((r) => { s += `<g transform="translate(${ax + (r.dx || 0)} ${r.y})">${block(r.id, { flip: r.flip })}</g>`; });
   s += `</g>`;
@@ -115,8 +115,8 @@ export function sheet2() {
   s += lab('aceite', ax + 6, 14, 150, 12);
   s += lab('aceituna', ax + 10, 36, 150, 36, ' ×2');
   s += lab('anchoa', ax + 14, 62, 150, 62);
-  s += lab('piparra', ax + 14, 100, 150, 100, ' ×3');
-  s += `<g class="leader"><circle cx="${ax + 9}" cy="142" r="0.7"/><path d="M${ax + 9} 142 L150 142 L154 142"/><text x="156" y="143.1" class="t-small">${esc(L({ es: 'ver arriba', en: 'see above', eu: 'ikus goian' }))}</text></g>`;
+  s += lab('piparra', ax + 11, 104, 150, 104, ' ×3');
+  s += `<g class="leader"><circle cx="${ax + 9}" cy="150" r="0.7"/><path d="M${ax + 9} 150 L150 150 L154 150"/><text x="156" y="151.1" class="t-small">${esc(L({ es: 'ver arriba', en: 'see above', eu: 'ikus goian' }))}</text></g>`;
   s += leader(30, 120, 12, 46, [{ text: esc(t('stick')), cls: 't-label ink-txt-structure' }, { text: esc(L(TAGS.structure)), cls: 't-tag' }], 'start');
   s += `</svg>`;
 
@@ -155,20 +155,57 @@ export function sheet3() {
 }
 
 // ---------- 05 Variantes ----------
-export function sheet5() {
+const openIco = `<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M14 4h6v6M20 4l-8 8M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>`;
+function variantDwg(v, W, minH, x, opts = {}) {
+  const probe = stack(v.stack, x, 0);
+  const H = Math.max(minH, Math.ceil(probe.length) + (opts.extra || 14)), base = H - (opts.foot || 7);
+  return { H, base, st: stack(v.stack, x, base), side: opts.side ? stack(v.stack, opts.side, base, { view: 'side' }) : null };
+}
+export function sheet5(sub) {
+  if (sub) { const i = VARIANTS.findIndex((v) => v.id === sub); if (i >= 0) return variantSheet(i); }
   const cards = VARIANTS.map((v, i) => {
-    const probe = stack(v.stack, 35, 0);
-    const H = Math.max(130, Math.ceil(probe.length) + 14), base = H - 7;
-    const st = stack(v.stack, 35, base);
+    const { H, base, st } = variantDwg(v, 70, 130, 35);
     const cats = [...new Set(v.stack.map((id) => PIECES[id].cat))];
     let s = svgOpen(70, H, L(v.name));
     s += `<g class="drawin">${st.svg}</g>`;
     s += dimV(8, st.yTip, base, `${Math.round(st.length)}`);
     s += `</svg>`;
-    return `<li class="vsheet"><figure class="dwg-wrap">${s}</figure><div class="vinfo"><p class="sheet-num">05.${i + 1}</p><h2>${esc(L(v.name))}</h2>` +
-      `<p>${esc(L(v.note))}</p>${v.sourcedOrder ? `<p class="flag">${esc(t('orderSourced'))}</p>` : ''}${legendHTML(cats)}${srcLinks(v.src)}</div></li>`;
+    return `<li class="vsheet"><a class="dwg-wrap vthumb" href="#/5/${v.id}" aria-label="${esc(t('openSheet'))} 05.${i + 1}: ${esc(L(v.name))}">${s}</a><div class="vinfo"><p class="sheet-num">05.${i + 1}</p><h2>${esc(L(v.name))}</h2>` +
+      `<p>${esc(L(v.note))}</p>${v.sourcedOrder ? `<p class="flag">${esc(t('orderSourced'))}</p>` : ''}${legendHTML(cats)}${srcLinks(v.src)}` +
+      `<a class="btn" href="#/5/${v.id}">${openIco}<span>${esc(t('openSheet'))}</span></a></div></li>`;
   }).join('');
   return head(5, t('s5Lead')) + `<div class="sheet-body"><ul class="variants">${cards}</ul></div>`;
+}
+
+function variantSheet(i) {
+  const v = VARIANTS[i];
+  const n = `05.${i + 1}`;
+  const W = 170;
+  const { H, base, st, side } = variantDwg(v, W, 150, 62, { side: 128, extra: 30, foot: 16 });
+  // number each distinct piece once, in order from the tip down, like a parts list
+  const order = [];
+  [...st.placed].reverse().forEach((pl) => { if (!order.find((o) => o.id === pl.id)) order.push({ id: pl.id, cy: pl.cy }); });
+  const qty = (id) => v.stack.filter((x) => x === id).length;
+  let s = svgOpen(W, H, `${n} ${L(v.name)}`);
+  s += `<g class="drawin">${st.svg}${side.svg}</g>`;
+  s += ext(57, st.yTip, 14, st.yTip) + ext(57, base, 14, base) + dimV(17, st.yTip, base, `${Math.round(st.length)}`);
+  order.forEach((o, k) => {
+    const y = o.cy;
+    s += `<path d="M${92} ${y} L${81} ${y}" class="leader-l"/><circle cx="81" cy="${y}" r="0.6" class="ink-structure fillink"/>` + balloon(95.4, y, k + 1);
+  });
+  s += viewTitle(62, H - 6, t('front')) + viewTitle(128, H - 6, t('side'));
+  s += `</svg>`;
+  const parts = `<ol class="parts">` + order.map((o) => `<li><span class="sw sw-${PIECES[o.id].cat}"></span><b>${esc(L(PIECES[o.id].name))}</b> <span class="mono">×${qty(o.id)}</span> <span class="muted">${esc(L(PIECES[o.id].role))}</span></li>`).join('') + `</ol>`;
+  const prev = VARIANTS[(i - 1 + VARIANTS.length) % VARIANTS.length], next = VARIANTS[(i + 1) % VARIANTS.length];
+  const build = `#/4?g=${v.stack.map((id) => CODES[id]).join(',')}`;
+  const arrowL = `<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>`;
+  const arrowR = `<svg viewBox="0 0 24 24" class="ico" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>`;
+  return `<header class="sheet-head"><p class="sheet-num">${esc(t('sheetOf')('05', '07'))} · ${n}</p><h1 id="sheet-title" tabindex="-1">${esc(L(v.name))}</h1><p class="lead">${esc(L(v.note))}</p></header>` +
+    `<div class="sheet-body two"><figure class="dwg-wrap">${s}</figure>` +
+    `<aside class="notes"><h2>${esc(t('parts'))}</h2>${parts}${v.sourcedOrder ? `<p class="flag">${esc(t('orderSourced'))}</p>` : `<p class="t-note">${esc(t('orderDrawn'))}</p>`}` +
+    `${srcLinks(v.src)}<div class="controls"><a class="btn primary" href="${build}">${openIco}<span>${esc(t('buildIt'))}</span></a></div>` +
+    `<nav class="controls" aria-label="${esc(t('sheets')[4])}"><a class="btn" href="#/5/${prev.id}">${arrowL}<span>${esc(L(prev.name))}</span></a><a class="btn" href="#/5/${next.id}"><span>${esc(L(next.name))}</span>${arrowR}</a></nav>` +
+    `<a class="btn ghost" href="#/5">${arrowL}<span>${esc(t('backVariants'))}</span></a></aside></div>`;
 }
 
 // ---------- 06 Memoria histórica ----------
